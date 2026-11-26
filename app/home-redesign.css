@@ -109,7 +109,15 @@ html:has(.home-redesign) header.site-header nav .button:hover {
 }
 
 /* ------------------------------------------------------------------ */
-/* 2. Hero — photo, navy gradient, ECG line, gold particles           */
+/* 2. Hero — Somya-style cinematic hero (replaces the centred hero)   */
+/*    Full-screen photo with slow Ken Burns zoom, dark wash + bottom   */
+/*    gradient into navy, film grain, content bottom-left, huge       */
+/*    word-rise headline, floating italic labels (desktop), fact      */
+/*    strip at the bottom. Pure CSS port of Somya Translators'        */
+/*    Hero.tsx (framer-motion) — same ease cubic-bezier(0.22, 1,      */
+/*    0.36, 1), word rise y 110% -> 0 in 0.9s, stagger 0.2s + i*0.09s, */
+/*    underline scaleX 0 -> 1 in 0.8s at delay 1.2s, subtitle fade-up */
+/*    at 0.85s, CTAs at 1.0s. No framer-motion, no new dependency.    */
 /* ------------------------------------------------------------------ */
 
 .bhc25-hero {
@@ -123,7 +131,7 @@ html:has(.home-redesign) header.site-header nav .button:hover {
 .bhc25-hero-media {
   position: absolute;
   inset: 0;
-  z-index: -2;
+  z-index: 0;
 }
 
 .bhc25-hero-media img {
@@ -131,182 +139,243 @@ html:has(.home-redesign) header.site-header nav .button:hover {
   height: 100%;
   object-fit: cover;
   object-position: 64% center;
+  animation: bhc25-kenburns 20s ease-out infinite alternate;
 }
 
-.bhc25-hero-media::after {
+/* Slow Ken Burns zoom, 20s, alternating so it breathes in and out. */
+@keyframes bhc25-kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.06); }
+}
+
+/* Dark wash + bottom gradient into navy (Somya: black/45 + gradient-to-t). */
+.bhc25-hero-wash {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(4, 10, 24, 0.45);
+}
+
+.bhc25-hero-fade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, #071a35 0%, rgba(7, 26, 53, 0.35) 42%, transparent 72%);
+}
+
+/* Film grain, Somya's .grain (opacity 0.07, pointer-events none). */
+.bhc25-hero::after {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(90deg, #071a35 0%, rgba(7, 26, 53, 0.96) 30%, rgba(7, 26, 53, 0.72) 52%, rgba(7, 26, 53, 0.34) 76%, rgba(7, 26, 53, 0.22) 100%),
-    linear-gradient(180deg, rgba(7, 26, 53, 0.55) 0%, transparent 26%, transparent 58%, rgba(7, 26, 53, 0.94) 100%);
-}
-
-/* ECG trace + particles (decorative layer, from the built hero). */
-.bhc25-decor {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
+  z-index: 2;
   pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
 }
 
-.bhc25-ecg {
+/* Floating italic labels, right side, desktop only (Somya: hidden lg:block,
+   white/55, float-y 7s ease-in-out infinite, staggered delays). */
+.bhc25-float-label {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 58%;
-  width: 100%;
-  height: 110px;
-  transform: translateY(-50%);
+  z-index: 10;
+  display: none;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.55);
+  pointer-events: none;
+  animation: bhc25-float-y 7s ease-in-out infinite;
 }
 
-.bhc25-ecg-base {
-  stroke: #4ade80;
-  stroke-width: 1.5;
-  opacity: 0.22;
+@media (min-width: 1024px) {
+  .bhc25-float-label { display: block; }
 }
 
-.bhc25-ecg-glow {
-  stroke: #4ade80;
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-dasharray: 170 830;
-  filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.9));
-  animation: bhc25-ecg-travel 6s linear infinite;
+@keyframes bhc25-float-y {
+  0%, 100% { transform: translateY(-6px); }
+  50% { transform: translateY(8px); }
 }
 
-@keyframes bhc25-ecg-travel {
-  from { stroke-dashoffset: 1000; }
-  to { stroke-dashoffset: 0; }
+/* Content column: min-height 100svh, items pinned to the bottom.
+   Minus the sticky global header's height, so the hero's bottom
+   strip (and partner marquee) sit inside the first viewport instead
+   of being pushed a header-height below the fold. */
+.bhc25-hero-body {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100svh - 80px);
 }
 
-.bhc25-particle {
-  position: absolute;
-  bottom: -12px;
-  border-radius: 9999px;
-  background: var(--bhc25-gold);
-  box-shadow: 0 0 8px rgba(185, 151, 59, 0.8);
-  animation: bhc25-float-up linear infinite;
+@media (max-width: 760px) {
+  .bhc25-hero-body { min-height: calc(100svh - 64px); }
 }
 
-@keyframes bhc25-float-up {
-  0% { transform: translate(0, 0); opacity: 0; }
-  12% { opacity: var(--peak, 0.8); }
-  85% { opacity: var(--peak, 0.8); }
-  100% { transform: translate(var(--drift, 0px), -100vh); opacity: 0; }
+.bhc25-hero-main {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
 }
 
 .bhc25-hero-inner {
-  max-width: 1320px;
+  width: 100%;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: clamp(56px, 7vw, 96px) max(5%, calc((100vw - 1320px) / 2)) clamp(40px, 4vw, 56px);
+  padding: 96px 20px 40px;
 }
 
-.bhc25-index {
-  margin: 0 0 18px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 2.6px;
-  color: #9fc3e8;
+@media (min-width: 768px) {
+  .bhc25-hero-inner { padding: 128px 40px 56px; }
 }
 
-.bhc25-index span { color: var(--bhc25-gold-soft); }
-
-.bhc25-kicker {
-  max-width: 560px;
-  margin: 0 0 16px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 2.4px;
-  line-height: 1.7;
-  color: #a5e5ca;
-}
-
-.bhc25-hero h1 {
-  max-width: 640px;
-  margin: 0 0 22px;
-  color: #fff;
-  font-size: clamp(48px, 6.2vw, 88px);
-  font-weight: 600;
-  line-height: 0.98;
-  letter-spacing: -0.045em;
-}
-
-.bhc25-hero h1 em {
-  font-family: Georgia, serif;
-  font-style: italic;
-  font-weight: 400;
-  color: var(--bhc25-mint);
-}
-
-.bhc25-word {
-  display: inline-block;
-  opacity: 0;
-  animation: bhc25-word-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
-  animation-delay: calc(var(--i) * 90ms + 120ms);
-}
-
-@keyframes bhc25-word-in {
-  from { opacity: 0; transform: translateY(0.35em); }
+@keyframes bhc25-fade-up {
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.bhc25-line { display: block; }
+/* Mobile-only words strip (Somya's greetings strip, lg:hidden). */
+.bhc25-hero-greetings {
+  margin: 0 0 20px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.75);
+  animation: bhc25-fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+}
+
+@media (min-width: 1024px) {
+  .bhc25-hero-greetings { display: none; }
+}
+
+.bhc25-hero-dot { color: var(--bhc25-gold-soft); font-style: normal; }
+
+/* Eyebrow: short gold rule + uppercase tracking 0.32em (Somya), delay 0.1s. */
+.bhc25-hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 24px;
+  animation: bhc25-fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+.bhc25-hero-rule {
+  display: block;
+  width: 48px;
+  height: 1px;
+  background: var(--bhc25-gold-soft);
+  flex: none;
+}
+
+.bhc25-hero-eyebrow p {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media (min-width: 768px) {
+  .bhc25-hero-eyebrow p { font-size: 12px; }
+}
+
+/* Headline: Somya's clamp(2.9rem, 8.2vw, 7rem), leading 0.98, Georgia
+   serif (BHC's serif stack, no webfont download). Each word rises
+   from y 110% inside its own overflow-hidden wrapper. */
+.bhc25-hero h1 {
+  margin: 0 0 24px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.9rem, 8.2vw, 7rem);
+  line-height: 0.98;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+
+.bhc25-hero-word-wrap {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+  vertical-align: bottom;
+}
+
+.bhc25-hero-word {
+  position: relative;
+  display: inline-block;
+  will-change: transform;
+  transform: translateY(110%);
+  animation: bhc25-hero-word-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(0.2s + var(--i) * 0.09s);
+}
+
+@keyframes bhc25-hero-word-in {
+  from { transform: translateY(110%); }
+  to { transform: translateY(0); }
+}
+
+.bhc25-hero-word-accent {
+  font-style: italic;
+  color: #4ade80;
+}
+
+/* Gold underline drawing under "next." — scaleX 0 -> 1, 0.8s, delay 1.2s. */
+.bhc25-hero-underline {
+  position: absolute;
+  left: 0;
+  bottom: -0.02em;
+  height: 0.05em;
+  width: 100%;
+  background: var(--bhc25-gold-soft);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: bhc25-underline-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.2s forwards;
+}
+
+@keyframes bhc25-underline-in {
+  to { transform: scaleX(1); }
+}
 
 .bhc25-lede {
-  max-width: 520px;
+  max-width: 36rem;
   margin: 0 0 10px;
-  color: #d4e5f3;
-  font-size: clamp(17px, 1.5vw, 21px);
-  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(1rem, 1.25vw, 1.125rem);
+  line-height: 1.6;
+  animation: bhc25-fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.85s both;
 }
 
 .bhc25-audience {
-  max-width: 500px;
-  margin: 0 0 28px;
-  color: #9eb9cf;
+  max-width: 32rem;
+  margin: 0 0 18px;
+  color: rgba(255, 255, 255, 0.62);
   font-size: 13px;
   line-height: 1.6;
+  animation: bhc25-fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.92s both;
 }
 
-.bhc25-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 0 0 30px;
-}
-
-.bhc25-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 10px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(4px);
-  font-size: 13px;
-  font-weight: 700;
-  color: #eaf2fa;
-}
-
-.bhc25-chip small {
-  display: block;
-  font-size: 8px;
+.bhc25-hero-kicker {
+  margin: 0 0 28px;
+  font-size: 11px;
   font-weight: 800;
-  letter-spacing: 1.6px;
-  color: #8ee8e2;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  line-height: 1.8;
+  color: var(--bhc25-gold-soft);
+  animation: bhc25-fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.98s both;
 }
-
-.bhc25-chip svg { flex: none; color: #8ee8e2; }
 
 .bhc25-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 14px;
-  margin: 0 0 14px;
+  margin: 0;
+  animation: bhc25-fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1s both;
 }
 
 .bhc25-hero .button {
@@ -338,15 +407,54 @@ html:has(.home-redesign) header.site-header nav .button:hover {
 
 .bhc25-ghost:hover { background: rgba(255, 255, 255, 0.13); border-color: #fff; }
 
-.bhc25-hero-anchor {
-  font-size: 13px;
-  font-weight: 700;
-  color: #9fc3e8;
-  border-bottom: 1px solid rgba(159, 195, 232, 0.4);
-  padding-bottom: 2px;
+/* Bottom fact strip inside the hero (Somya: border-t white/15,
+   tracking 0.22em uppercase, gold dot separators, right-aligned
+   location on desktop). */
+.bhc25-hero-strip {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.bhc25-hero-anchor:hover { color: #fff; border-color: #fff; }
+.bhc25-hero-strip-inner {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+  padding: 16px 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Mobile: tighter type + spacing so the strip wraps into two clean,
+   fully visible lines instead of clipping mid-line at the fold. */
+@media (max-width: 760px) {
+  .bhc25-hero-strip-inner {
+    padding: 12px 20px;
+    gap: 6px 14px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    line-height: 1.7;
+  }
+}
+
+@media (min-width: 768px) {
+  .bhc25-hero-strip-inner { padding: 16px 40px; font-size: 12px; }
+}
+
+.bhc25-hero-strip-right {
+  margin-left: auto;
+  display: none;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+@media (min-width: 768px) {
+  .bhc25-hero-strip-right { display: inline; }
+}
 
 /* ------------------------------------------------------------------ */
 /* 3. Partner marquee — inside the hero's lower portion               */
@@ -356,8 +464,7 @@ html:has(.home-redesign) header.site-header nav .button:hover {
   position: relative;
   z-index: 1;
   border-top: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(4, 12, 28, 0.55);
-  backdrop-filter: blur(6px);
+  background: #071a35;
 }
 
 .bhc25-marquee-inner {
@@ -427,6 +534,19 @@ html:has(.home-redesign) header.site-header nav .button:hover {
   width: auto;
   max-width: 170px;
   object-fit: contain;
+}
+
+/* Screen-reader-only text (no Tailwind in this project). */
+.home-redesign .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ------------------------------------------------------------------ */
@@ -1101,6 +1221,134 @@ html:has(.home-redesign) header.site-header nav .button:hover {
 .home-redesign .collaboration { border-top: 1px solid var(--bhc25-line); }
 
 /* ------------------------------------------------------------------ */
+/* 13b. Outline marquee — Somya-style scrolling outline text         */
+/*      Huge serif outline words, -webkit-text-stroke, transparent    */
+/*      fill, translateX 0 -> -50% over 42s linear infinite. The five */
+/*      words are the real conclave pillars.                          */
+/* ------------------------------------------------------------------ */
+
+.bhc25-outline-marquee {
+  background: #071a35;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  padding: 26px 0 30px;
+}
+
+.bhc25-outline-viewport { overflow: hidden; }
+
+.bhc25-outline-track {
+  display: flex;
+  width: max-content;
+  animation: bhc25-outline-marquee 42s linear infinite;
+}
+
+.bhc25-outline-marquee:hover .bhc25-outline-track { animation-play-state: paused; }
+
+@keyframes bhc25-outline-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.bhc25-outline-set {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3rem, 6.5vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.55);
+  color: transparent;
+}
+
+.bhc25-outline-dot {
+  -webkit-text-stroke: 0;
+  color: var(--bhc25-gold-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* 13c. Word-rise headings + scroll reveals (Somya's Reveal /        */
+/*      WordReveal, ported to CSS). Sections fade up y 28 over 0.9s   */
+/*      with the Somya ease once .is-revealed is added by             */
+/*      ScrollReveal (viewport margin -5%, threshold 0.12). Heading   */
+/*      words rise from y 110% with 0.08s stagger. Cards stagger in   */
+/*      with nth-child delays; images scale 1.04 -> 1 on reveal.     */
+/*      The `translate` / `scale` properties (not `transform`) are    */
+/*      used for reveals so hover transforms on cards still work.    */
+/*      NOTE: launch-ready.css force-shows .section globally with     */
+/*      !important, so these homepage rules use the higher-specificity */
+/*      `body.reveal-ready main .home-redesign` selector + !important */
+/*      on opacity to take effect on the homepage only.              */
+/* ------------------------------------------------------------------ */
+
+body.reveal-ready main .home-redesign :is(.section, .partners, .event-strip, .competition-home-link, .bhc25-mentors, .bhc25-stats-band, .bhc25-register-cta, .bhc25-outline-marquee) {
+  opacity: 0 !important;
+  translate: 0 28px;
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), translate 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.reveal-ready main .home-redesign :is(.section, .partners, .event-strip, .competition-home-link, .bhc25-mentors, .bhc25-stats-band, .bhc25-register-cta, .bhc25-outline-marquee).is-revealed {
+  opacity: 1 !important;
+  translate: 0 0;
+}
+
+/* WordReveal: words rise when their section is revealed. */
+.bhc25-wr-wrap {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+  vertical-align: bottom;
+}
+
+.bhc25-wr-word {
+  display: inline-block;
+  will-change: transform;
+  transform: translateY(110%);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--i) * 0.08s);
+}
+
+.home-redesign .is-revealed .bhc25-wr-word { transform: translateY(0); }
+
+body:not(.reveal-ready) .bhc25-wr-word { transform: translateY(0); }
+
+.bhc25-wr-accent {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--bhc25-emerald);
+}
+
+.bhc25-stats-band .bhc25-wr-accent,
+.bhc25-register-cta .bhc25-wr-accent,
+section.audience .bhc25-wr-accent { color: #a5e5ca; }
+
+/* Staggered card / row reveals inside a revealed section. */
+body.reveal-ready main .home-redesign :is(.bhc25-highlight-row, .pillar-card, .bhc25-workshop-card, .bhc25-mentor-row, .bhc25-mentor-featured, .bhc25-venue-photos figure, .audience-grid > a, .benefit-card, .partner-card, .programme-carousel-slide, .bhc25-stat) {
+  opacity: 0;
+  translate: 0 20px;
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), translate 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.reveal-ready main .home-redesign .is-revealed :is(.bhc25-highlight-row, .pillar-card, .bhc25-workshop-card, .bhc25-mentor-row, .bhc25-mentor-featured, .bhc25-venue-photos figure, .audience-grid > a, .benefit-card, .partner-card, .programme-carousel-slide, .bhc25-stat) {
+  opacity: 1;
+  translate: 0 0;
+}
+
+body.reveal-ready main .home-redesign :is(.bhc25-highlight-row, .pillar-card, .bhc25-workshop-card, .bhc25-mentor-row, .bhc25-mentor-featured, .bhc25-venue-photos figure, .audience-grid > a, .benefit-card, .partner-card, .programme-carousel-slide, .bhc25-stat):nth-child(2) { transition-delay: 0.08s; }
+body.reveal-ready main .home-redesign :is(.bhc25-highlight-row, .pillar-card, .bhc25-workshop-card, .bhc25-mentor-row, .bhc25-mentor-featured, .bhc25-venue-photos figure, .audience-grid > a, .benefit-card, .partner-card, .programme-carousel-slide, .bhc25-stat):nth-child(3) { transition-delay: 0.16s; }
+body.reveal-ready main .home-redesign :is(.bhc25-highlight-row, .pillar-card, .bhc25-workshop-card, .bhc25-mentor-row, .bhc25-mentor-featured, .bhc25-venue-photos figure, .audience-grid > a, .benefit-card, .partner-card, .programme-carousel-slide, .bhc25-stat):nth-child(4) { transition-delay: 0.24s; }
+body.reveal-ready main .home-redesign :is(.bhc25-highlight-row, .pillar-card, .bhc25-workshop-card, .bhc25-mentor-row, .bhc25-mentor-featured, .bhc25-venue-photos figure, .audience-grid > a, .benefit-card, .partner-card, .programme-carousel-slide, .bhc25-stat):nth-child(5) { transition-delay: 0.32s; }
+body.reveal-ready main .home-redesign :is(.bhc25-highlight-row, .pillar-card, .bhc25-workshop-card, .bhc25-mentor-row, .bhc25-mentor-featured, .bhc25-venue-photos figure, .audience-grid > a, .benefit-card, .partner-card, .programme-carousel-slide, .bhc25-stat):nth-child(6) { transition-delay: 0.4s; }
+
+/* Images scale 1.04 -> 1 on reveal (Somya's LazyImage pattern). */
+body.reveal-ready main .home-redesign :is(.bhc25-overview-figure img, .bhc25-venue-photos img, .bhc25-mentor-featured img) {
+  scale: 1.04;
+  transition: scale 1s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+}
+
+body.reveal-ready main .home-redesign .is-revealed :is(.bhc25-overview-figure img, .bhc25-venue-photos img, .bhc25-mentor-featured img) { scale: 1; }
+
+/* ------------------------------------------------------------------ */
 /* 14. Responsive                                                     */
 /* ------------------------------------------------------------------ */
 
@@ -1128,17 +1376,9 @@ html:has(.home-redesign) header.site-header nav .button:hover {
 }
 
 @media (max-width: 760px) {
-  .bhc25-hero-media::after {
-    background:
-      linear-gradient(180deg, rgba(7, 26, 53, 0.88) 0%, rgba(7, 26, 53, 0.62) 42%, rgba(7, 26, 53, 0.55) 68%, rgba(7, 26, 53, 0.96) 100%),
-      linear-gradient(90deg, rgba(7, 26, 53, 0.55), rgba(7, 26, 53, 0.35));
-  }
-  .bhc25-hero h1 { font-size: clamp(44px, 13.5vw, 60px); }
-  .bhc25-ecg { top: 44%; height: 84px; }
+  .bhc25-hero-wash { background: rgba(4, 10, 24, 0.55); }
   .bhc25-actions { display: grid; grid-template-columns: 1fr; }
   .bhc25-actions .button, .bhc25-ghost { justify-content: center; width: 100%; }
-  .bhc25-chips { gap: 8px; }
-  .bhc25-chip { font-size: 12px; padding: 9px 13px; }
   .bhc25-logo-chip { height: 48px; padding: 6px 14px; }
   .bhc25-logo-chip img { height: 34px; max-width: 130px; }
   .bhc25-mentor-featured { grid-template-columns: 1fr; }
@@ -1158,22 +1398,48 @@ html:has(.home-redesign) header.site-header nav .button:hover {
 }
 
 @media (max-width: 430px) {
-  .bhc25-hero-inner { padding-top: 48px; }
-  .bhc25-kicker { letter-spacing: 1.8px; }
+  .bhc25-hero-inner { padding: 64px 20px 24px; }
+  .bhc25-hero-greetings { margin-bottom: 12px; font-size: 1rem; }
+  .bhc25-hero h1 { margin-bottom: 16px; font-size: clamp(2.1rem, 9vw, 2.6rem); }
+  .bhc25-lede { font-size: 15px; }
+  .bhc25-audience { font-size: 13px; margin-bottom: 14px; }
+  .bhc25-hero-kicker { margin-bottom: 20px; line-height: 1.6; }
+  .bhc25-hero .button, .bhc25-ghost { padding: 13px 20px; }
   .bhc25-overview-figure figcaption { font-size: 11px; left: 12px; bottom: 12px; }
   .bhc25-highlight-row { grid-template-columns: 36px 1fr 24px; gap: 14px; padding: 22px 4px; }
 }
 
 /* ------------------------------------------------------------------ */
-/* 15. Reduced motion — everything static, marquee becomes a grid     */
+/* 15. Reduced motion — everything static, marquees become static     */
 /* ------------------------------------------------------------------ */
 
 @media (prefers-reduced-motion: reduce) {
-  .bhc25-word { opacity: 1; animation: none; }
-  .bhc25-ecg-glow, .bhc25-particle { animation: none !important; }
-  .bhc25-ecg-glow { stroke-dasharray: none; opacity: 0.7; }
-  .bhc25-track { animation: none; flex-wrap: wrap; width: auto; }
+  .bhc25-hero-media img,
+  .bhc25-float-label { animation: none !important; }
+  .bhc25-hero-word { transform: none; animation: none; }
+  .bhc25-hero-underline { transform: scaleX(1); animation: none; }
+  .bhc25-hero-greetings,
+  .bhc25-hero-eyebrow,
+  .bhc25-lede,
+  .bhc25-audience,
+  .bhc25-hero-kicker,
+  .bhc25-actions { animation: none; }
+  .bhc25-track,
+  .bhc25-outline-track { animation: none; }
+  .bhc25-track { flex-wrap: wrap; width: auto; }
   .bhc25-track-set { flex-wrap: wrap; }
   .bhc25-marquee-viewport { mask-image: none; -webkit-mask-image: none; }
+  .bhc25-wr-word { transform: none; transition: none; }
+  body.reveal-ready main .home-redesign :is(.section, .partners, .event-strip, .competition-home-link, .bhc25-mentors, .bhc25-stats-band, .bhc25-register-cta, .bhc25-outline-marquee) {
+    opacity: 1 !important;
+    translate: 0 0;
+    transition: none;
+  }
+  body.reveal-ready main .home-redesign :is(.bhc25-highlight-row, .pillar-card, .bhc25-workshop-card, .bhc25-mentor-row, .bhc25-mentor-featured, .bhc25-venue-photos figure, .audience-grid > a, .benefit-card, .partner-card, .programme-carousel-slide, .bhc25-stat) {
+    opacity: 1;
+    translate: 0 0;
+    transition: none;
+  }
+  .home-redesign :is(.bhc25-overview-figure img, .bhc25-venue-photos img, .bhc25-mentor-featured img) { scale: 1; transition: none; }
   html { scroll-behavior: auto; }
 }

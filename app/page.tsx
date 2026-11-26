@@ -15,7 +15,8 @@ import { ProgrammeCarousel } from '@/components/programme-carousel';
 import { MENTORS_DATA } from '@/lib/mentors';
 import { officialContact, unifiedWorkshopOptions } from '@/lib/enhancement-data';
 import { PartnerMarquee } from '@/components/home/partner-marquee';
-import { HeroDecor } from '@/components/home/hero-decor';
+import { OutlineMarquee } from '@/components/home/outline-marquee';
+import { WordReveal } from '@/components/home/word-reveal';
 import { HomeStats, type HomeStat } from '@/components/home/home-stats';
 import './home-redesign.css';
 
@@ -27,11 +28,30 @@ const pillars = [
   ['excellence', 'Excellence', 'Recognition & celebration'],
 ] as const;
 
-// Headline words, staggered in the hero. Line 2 is the italic accent.
-const headlineLines: { text: string; em?: boolean }[][] = [
-  [{ text: 'Where' }, { text: 'care' }, { text: 'meets' }],
-  [{ text: 'what’s', em: true }, { text: 'next.', em: true }],
+// Hero headline words (Somya-style word rise). "what's next." is the
+// italic emerald accent; the gold underline draws under "next.".
+const heroWords: { text: string; accent?: boolean; underline?: boolean }[] = [
+  { text: 'Where' },
+  { text: 'care' },
+  { text: 'meets' },
+  { text: 'what’s', accent: true },
+  { text: 'next.', accent: true, underline: true },
 ];
+
+// Floating italic labels on the hero's right side (desktop only) —
+// healthcare equivalents of Somya's floating greetings. Just words,
+// no claims. Positions mirror Somya's Hero (right %, top %).
+const heroFloatingLabels = [
+  { text: 'Care', right: '6%', top: '10%', delay: '0s' },
+  { text: 'सेवा', right: '16%', top: '20%', delay: '1.4s' },
+  { text: 'Quality', right: '5%', top: '32%', delay: '0.7s' },
+  { text: 'Healing', right: '2%', top: '68%', delay: '2.4s' },
+  { text: 'Trust', right: '6%', top: '74%', delay: '1.1s' },
+];
+
+// Same words as a small inline strip on mobile (desktop uses the
+// floating labels instead) — Somya's greetings-strip pattern.
+const heroMobileWords = ['Care', 'Quality', 'Healing', 'Innovation', 'Trust'];
 
 // Six programme highlights, one per theme — real data from the poster
 // programme list (see lib/poster-programmes.ts), in the order shown.
@@ -116,49 +136,90 @@ export default async function Home() {
   const featuredMentor = MENTORS_DATA[0];
   const otherMentors = MENTORS_DATA.slice(1);
 
-  let wordIndex = 0;
-
   return (
     <div className="home-redesign">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventStructuredData()).replace(/</g, '\\u003c') }} />
       <div className="announcement"><span>INNOVATION · QUALITY · SKILLS · TECHNOLOGY · EXCELLENCE</span><Link href="/register">Registration Open ↗</Link></div>
 
-      {/* 1 — Integrated navbar + hero (the header turns navy via
+      {/* 1 — Cinematic hero, Somya Translators style: full-screen photo
+          with dark wash + bottom gradient, content bottom-left, huge
+          word-rise headline, floating italic labels (desktop) and a
+          fact strip at the bottom. The global header turns navy via
           html:has(.home-redesign) in home-redesign.css, so header and
-          hero read as one continuous dark block). */}
+          hero read as one continuous dark block. The centred ECG hero
+          is gone — no HeroDecor, no date/venue chips. */}
       <section className="bhc25-hero" aria-label="Bihar Healthcare Conclave 2026">
         <div className="bhc25-hero-media" aria-hidden="true">
           <Image src="/images/healthcare-team-hero.png" alt="" fill priority sizes="100vw" quality={90} />
         </div>
-        <HeroDecor />
-        <div className="bhc25-hero-inner">
-          <p className="bhc25-index">BHC / 2026 <span>—</span> PATNA, BIHAR</p>
-          <p className="bhc25-kicker">{settings.heroKicker && (settings.heroKicker.includes('HEALTHIER PEOPLE') || settings.heroKicker.includes('Healthier People')) ? settings.heroKicker : 'HEALTHY BIHAR | HEALTHIER PEOPLE | A STRONGER INDIA.'}</p>
-          <h1>
-            {headlineLines.map((line, li) => (
-              <span className="bhc25-line" key={li}>
-                {line.map((word) => {
-                  const i = wordIndex++;
-                  const inner = <span className="bhc25-word" style={{ '--i': i } as React.CSSProperties}>{word.text}</span>;
-                  return <span key={word.text}>{word.em ? <em>{inner}</em> : inner}{' '}</span>;
-                })}
-              </span>
-            ))}
-          </h1>
-          <p className="bhc25-lede">{settings.heroTagline}</p>
-          <p className="bhc25-audience">{settings.heroAudience}</p>
-          <div className="bhc25-chips" aria-label="Event date and venue">
-            <span className="bhc25-chip"><ThemeIcon kind="calendar" /><span><small>DATE</small>Friday, 11 December 2026</span></span>
-            <span className="bhc25-chip"><ThemeIcon kind="pin" /><span><small>VENUE</small>Urja Auditorium, Patna</span></span>
+        <div className="bhc25-hero-wash" aria-hidden="true" />
+        <div className="bhc25-hero-fade" aria-hidden="true" />
+        {heroFloatingLabels.map((label) => (
+          <span
+            key={label.text}
+            aria-hidden="true"
+            className="bhc25-float-label"
+            style={{ right: label.right, top: label.top, animationDelay: label.delay } as React.CSSProperties}
+          >
+            {label.text}
+          </span>
+        ))}
+        <div className="bhc25-hero-body">
+          <div className="bhc25-hero-main">
+            <div className="bhc25-hero-inner">
+              <p className="bhc25-hero-greetings" aria-hidden="true">
+                {heroMobileWords.map((word, i) => (
+                  <span key={word}>
+                    {word}
+                    {i < heroMobileWords.length - 1 && <span className="bhc25-hero-dot" aria-hidden="true"> · </span>}
+                  </span>
+                ))}
+              </p>
+              <div className="bhc25-hero-eyebrow">
+                <span className="bhc25-hero-rule" aria-hidden="true" />
+                <p>BIHAR HEALTHCARE CONCLAVE 2026 — PATNA, BIHAR</p>
+              </div>
+              <h1>
+                {heroWords.map((word, i) => (
+                  <span className="bhc25-hero-word-wrap" key={word.text} aria-hidden="true">
+                    <span
+                      className={`bhc25-hero-word${word.accent ? ' bhc25-hero-word-accent' : ''}`}
+                      style={{ '--i': i } as React.CSSProperties}
+                    >
+                      {word.text}
+                      {word.underline && <span className="bhc25-hero-underline" aria-hidden="true" />}
+                      {i < heroWords.length - 1 ? '\u00A0' : ''}
+                    </span>
+                  </span>
+                ))}
+                <span className="sr-only">Where care meets what’s next.</span>
+              </h1>
+              <p className="bhc25-lede">{settings.heroTagline}</p>
+              <p className="bhc25-audience">{settings.heroAudience}</p>
+              <p className="bhc25-hero-kicker">{settings.heroKicker && (settings.heroKicker.includes('HEALTHIER PEOPLE') || settings.heroKicker.includes('Healthier People')) ? settings.heroKicker : 'HEALTHY BIHAR | HEALTHIER PEOPLE | A STRONGER INDIA.'}</p>
+              <div className="bhc25-actions">
+                <Link href="/register" className="button">Register Here <span>↗</span></Link>
+                <Link href="/programme" className="bhc25-ghost">Explore Programme <span>↗</span></Link>
+              </div>
+            </div>
           </div>
-          <div className="bhc25-actions">
-            <Link href="/register" className="button">Register Here <span>↗</span></Link>
-            <Link href="/programme" className="bhc25-ghost">Explore Programme <span>↗</span></Link>
-            <a href="#programme-highlights" className="bhc25-hero-anchor">Programme highlights ↓</a>
+          <div className="bhc25-hero-strip">
+            <div className="bhc25-hero-strip-inner">
+              <span>11 December 2026</span>
+              <span aria-hidden="true" className="bhc25-hero-dot">·</span>
+              <span>Friday</span>
+              <span aria-hidden="true" className="bhc25-hero-dot">·</span>
+              <span>Urja Auditorium, Patna</span>
+              <span aria-hidden="true" className="bhc25-hero-dot">·</span>
+              <span>Registration Open</span>
+              <span className="bhc25-hero-strip-right">Patna · Bihar</span>
+            </div>
           </div>
+          <PartnerMarquee partners={publishedPartners} />
         </div>
-        <PartnerMarquee partners={publishedPartners} />
       </section>
+
+      <OutlineMarquee />
 
       <section className="event-strip-shell" aria-label="Conclave information">
         <div className="event-strip">
@@ -168,7 +229,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="competition-band"><div className="competition-home-link"><div className="competition-copy"><p className="eyebrow">STUDENT COMPETITIONS</p><h2>Quiz knowledge. Build Healthcare solutions.</h2><p>Nursing Knowledge Quest & Healthcare Innovation Hackathon 2026</p></div><div className="competition-side"><a className="button" href={competitionRegistrationUrl} target="_blank" rel="noopener noreferrer">Quiz & Hackathon Registration ↗</a></div></div></section>
+      <section className="competition-band"><div className="competition-home-link"><div className="competition-copy"><p className="eyebrow">STUDENT COMPETITIONS</p><h2><WordReveal text="Quiz knowledge. Build Healthcare solutions." /></h2><p>Nursing Knowledge Quest & Healthcare Innovation Hackathon 2026</p></div><div className="competition-side"><a className="button" href={competitionRegistrationUrl} target="_blank" rel="noopener noreferrer">Quiz & Hackathon Registration ↗</a></div></div></section>
       <Countdown />
       {total !== null && <p className="countdown registration-count"><AnimatedCount value={total} /> confirmed registrations</p>}
 
@@ -180,7 +241,7 @@ export default async function Home() {
         </figure>
         <div className="bhc25-overview-copy">
           <p className="bhc25-eyebrow">THE BIHAR HEALTHCARE CONCLAVE</p>
-          <h2>Better care.<br />Bolder ideas.<br /><em>Stronger connections.</em></h2>
+          <h2><WordReveal text="Better care. Bolder ideas. Stronger connections." accentWords={['Stronger', 'connections']} /></h2>
           <p className="large">{settings.headline}</p>
           <p>{settings.introduction}</p>
           <p>From clinical quality to AI, from nursing knowledge to engineering innovation — discover the connections that can move healthcare forward.</p>
@@ -194,7 +255,7 @@ export default async function Home() {
         <div className="bhc25-section-head">
           <div>
             <p className="bhc25-eyebrow">EVENT HIGHLIGHTS · ONE DAY, MANY STAGES</p>
-            <h2>What happens on the day.</h2>
+            <h2><WordReveal text="What happens on the day." /></h2>
           </div>
           <Link href="/programme" className="text-link">Explore All Programmes →</Link>
         </div>
@@ -214,7 +275,7 @@ export default async function Home() {
       <section className="bhc25-stats-band" aria-label="Conclave in numbers">
         <div className="bhc25-band-inner">
           <p className="bhc25-eyebrow">THE CONCLAVE IN NUMBERS</p>
-          <h2>One day. <em>Counted honestly.</em></h2>
+          <h2><WordReveal text="One day. Counted honestly." accentWords={['Counted', 'honestly']} /></h2>
           <HomeStats items={stats} />
         </div>
       </section>
@@ -224,7 +285,7 @@ export default async function Home() {
         <div className="bhc25-section-head">
           <div>
             <p className="bhc25-eyebrow">FIVE PILLARS · ONE SHARED PURPOSE</p>
-            <h2>A foundation for a healthier future.</h2>
+            <h2><WordReveal text="A foundation for a healthier future." /></h2>
           </div>
           <Link href="/vision" className="text-link">Our vision →</Link>
         </div>
@@ -236,7 +297,7 @@ export default async function Home() {
         <div className="bhc25-section-head">
           <div>
             <p className="bhc25-eyebrow">PROGRAMME HIGHLIGHTS</p>
-            <h2>Learn. Build. Discover.<br /><em>Make your mark.</em></h2>
+            <h2><WordReveal text="Learn. Build. Discover. Make your mark." accentWords={['Make', 'your', 'mark']} /></h2>
           </div>
           <Link href="/programme" className="text-link">Explore All Programmes →</Link>
         </div>
@@ -248,7 +309,7 @@ export default async function Home() {
       <section className="section audience bhc25-section">
         <div className="audience-copy">
           <p className="eyebrow">WHO CAN PARTICIPATE</p>
-          <h2>Healthcare’s next chapter<br />needs <em>your perspective.</em></h2>
+          <h2><WordReveal text="Healthcare’s next chapter needs your perspective." accentWords={['your', 'perspective']} /></h2>
           <p>From the clinic to the classroom. From engineering to entrepreneurship. Find your place in the conversation.</p>
           <Link href="/participate" className="button">Explore participation categories ↗</Link>
         </div>
@@ -260,7 +321,7 @@ export default async function Home() {
       {verifiedSpeakers.length > 0 && (
         <section className="section bhc25-section">
           <p className="bhc25-eyebrow">CONFIRMED SPEAKERS</p>
-          <h2>Meet the voices shaping the conversation.</h2>
+          <h2><WordReveal text="Meet the voices shaping the conversation." /></h2>
           <div className="speaker-grid">{verifiedSpeakers.map((s) => <article className="benefit-card" key={s.name}><h3>{s.name}</h3><p>{s.designation}</p><p>{s.bio}</p></article>)}</div>
         </section>
       )}
@@ -270,7 +331,7 @@ export default async function Home() {
         <div className="bhc25-mentors-inner">
           <div>
             <p className="bhc25-eyebrow">CHIEF MENTORS &amp; PATRONS</p>
-            <h2>Guided by the people who built Bihar’s healthcare.</h2>
+            <h2><WordReveal text="Guided by the people who built Bihar’s healthcare." /></h2>
             <p className="bhc25-lead">Revered medical pioneers, public health architects and quality leaders provide overarching mentorship and guidance to the Conclave.</p>
             <blockquote className="bhc25-mentors-quote">
               “The future of Bihar’s healthcare won’t be defined by infrastructure alone. It will be remembered for the pioneers who led, healed, and transformed lives across generations.”
@@ -310,7 +371,7 @@ export default async function Home() {
         <div className="bhc25-section-head">
           <div>
             <p className="bhc25-eyebrow">WORKSHOPS &amp; AREAS OF INTEREST</p>
-            <h2>Learn hands-on, <em>from the people who do it.</em></h2>
+            <h2><WordReveal text="Learn hands-on, from the people who do it." accentWords={['from', 'the', 'people', 'who', 'do', 'it']} /></h2>
           </div>
           <Link href="/register" className="text-link">Register for a workshop →</Link>
         </div>
@@ -349,7 +410,7 @@ export default async function Home() {
           </div>
           <div>
             <p className="bhc25-eyebrow">VENUE · PATNA, BIHAR</p>
-            <h2>Urja Auditorium, <em>New Punaichak.</em></h2>
+            <h2><WordReveal text="Urja Auditorium, New Punaichak." accentWords={['New', 'Punaichak']} /></h2>
             <p className="bhc25-lead">An architectural landmark in BSPHCL Colony — an 850-seat two-tier acoustic hall with a grand granite atrium and dedicated campus plaza.</p>
             <ul className="bhc25-venue-facts">
               <li><span>Address</span>{venueAddress}</li>
@@ -373,7 +434,7 @@ export default async function Home() {
       {/* 13 — Final registration CTA */}
       <section className="bhc25-register-cta" aria-label="Register for the Conclave">
         <p className="bhc25-eyebrow">REGISTRATION OPEN</p>
-        <h2>Be there when Bihar’s healthcare <em>turns the page.</em></h2>
+        <h2><WordReveal text="Be there when Bihar’s healthcare turns the page." accentWords={['turns', 'the', 'page']} /></h2>
         <p>Friday, 11 December 2026 · Urja Auditorium, Patna. For healthcare professionals, medical &amp; engineering students, educators, institutions and innovators.</p>
         <p className="bhc25-fee-note">General Conference &amp; Exhibition attendance is complimentary · Workshops ₹100 – ₹1,000</p>
         <div className="bhc25-actions">
@@ -386,7 +447,7 @@ export default async function Home() {
       <section className="section collaboration">
         <div>
           <p className="eyebrow">PARTNERSHIP OPPORTUNITIES</p>
-          <h2>Together, we can<br />create lasting impact.</h2>
+          <h2><WordReveal text="Together, we can create lasting impact." /></h2>
           <p>Explore collaborations in healthcare, technology, education and community impact.</p>
         </div>
         <a className="button" href="mailto:info@biharhealthcareconclave.com?subject=Partnership%20Enquiry%20-%20Bihar%20Healthcare%20Conclave">Enquire About Partnerships ↗</a>

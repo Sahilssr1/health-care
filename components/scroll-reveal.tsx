@@ -7,7 +7,7 @@ export function ScrollReveal(){
   const pathname=usePathname();
   useEffect(()=>{
     document.documentElement.dataset.page=pathname;
-    const targets=[...document.querySelectorAll<HTMLElement>('main .section, main .partners, main .event-strip, main .competition-home-link')];
+    const targets=[...document.querySelectorAll<HTMLElement>('main .section, main .partners, main .event-strip, main .competition-home-link, main .bhc25-mentors, main .bhc25-stats-band, main .bhc25-register-cta, main .bhc25-outline-marquee')];
     if(!targets.length)return;
     document.body.classList.add('reveal-ready');
     const observer=new IntersectionObserver(entries=>{
