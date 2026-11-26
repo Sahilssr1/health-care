@@ -1,0 +1,19 @@
+ALTER TABLE "Registration"
+ ADD COLUMN "participantType" TEXT NOT NULL DEFAULT '',
+ ADD COLUMN "specialisation" TEXT NOT NULL DEFAULT '',
+ ADD COLUMN "whatsApp" TEXT NOT NULL DEFAULT '',
+ ADD COLUMN "department" TEXT NOT NULL DEFAULT '',
+ ADD COLUMN "organisationType" TEXT NOT NULL DEFAULT '',
+ ADD COLUMN "state" TEXT NOT NULL DEFAULT '',
+ ADD COLUMN "country" TEXT NOT NULL DEFAULT 'India',
+ ADD COLUMN "experience" TEXT NOT NULL DEFAULT '',
+ ADD COLUMN "preferredProgrammes" TEXT[] NOT NULL DEFAULT ARRAY[]::TEXT[],
+ ADD COLUMN "communicationsConsent" BOOLEAN NOT NULL DEFAULT false,
+ ADD COLUMN "registrationStatus" TEXT NOT NULL DEFAULT 'confirmed';
+ALTER TABLE "Admin" ADD COLUMN "role" TEXT NOT NULL DEFAULT 'admin';
+CREATE TABLE "ContentRecord" (
+ "key" TEXT NOT NULL PRIMARY KEY,
+ "data" JSONB NOT NULL,
+ "revision" INTEGER NOT NULL DEFAULT 1,
+ "updatedAt" TIMESTAMP(3) NOT NULL
+);

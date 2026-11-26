@@ -1,0 +1,11 @@
+54bb142731f54327fc999e223c6388fc38490dd1a8245d8b90bc2f39a31524e3  /opt/bhc2026/source/app/page.tsx
+c974f4a10765be17dd1ff45b44fa6e915a91e5338c978e1b2396baaea82c6446  /opt/bhc2026/source/app/layout.tsx
+aff544690cb8e90a23b5e9e7cc280517857004337564c9a90a2089d48fbb16f5  /opt/bhc2026/source/app/sitemap.ts
+dd3bf68d6ea688e5704c4e7193665da7951c7fcb0477f6edf19f516a6a4d8b19  /opt/bhc2026/source/app/enhancements.css
+7e992d3797feb1fe2a8e40b1f31e4333f9354f7f15be6dc2e9bde5f88e9ec721  /opt/bhc2026/source/app/admin/page.tsx
+c3ceee37c6fcfd2c0829dc2f8f2bffda47966d3c5acbae637da8c97022463357  /opt/bhc2026/source/app/[slug]/page.tsx
+9ff8ee6f8ab1a3b2785e2a887fc035ee8abcfe408765758d6c9e1c2ab856e066  /opt/bhc2026/source/components/event-interactions.tsx
+77b1f10012bedc87148bca459a5ca2b2613ac8fa7decc0112f7e67e2e1831551  /opt/bhc2026/source/components/programme-browser.tsx
+09afacf0c762e50f25e1d3bb8cf361b8247f76eb5e53fa77ef6ff197567ac680  /opt/bhc2026/source/scripts/email-service.ts
+60006bbd9e631e8815e7c6aaef2e85e843ef122d9b4ceacfbef677af6a5fe4ac  /opt/bhc2026/source/scripts/email-worker.ts
+3ba1804ff46a016f82ca5b470add4c8dee21cfaaa8ce3a8b5870759840304d21  /opt/bhc2026/source/prisma/schema.prisma

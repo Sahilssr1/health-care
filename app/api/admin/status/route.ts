@@ -1,0 +1,5 @@
+import { z } from 'zod';
+import { adminSession,trustedOrigin } from '@/lib/security';
+import { db } from '@/lib/db';
+const schema=z.object({id:z.string().uuid(),status:z.enum(['confirmed','waitlisted','cancelled'])});
+export async function POST(req:Request){if(!trustedOrigin(req))return new Response('Forbidden',{status:403});const session=await adminSession();if(!session)return new Response('Unauthorised',{status:401});if(session.admin.role!=='admin')return new Response('Forbidden',{status:403});const f=await req.formData();const input=schema.safeParse(Object.fromEntries(f));if(!input.success)return new Response('Invalid status',{status:400});await db.$transaction(async tx=>{await tx.registration.update({where:{id:input.data.id},data:{registrationStatus:input.data.status,googleVersion:{increment:1},googleStatus:'pending',googleNextAttempt:new Date()}});await tx.audit.create({data:{adminId:session.adminId,action:'registration_status',target:input.data.id+':'+input.data.status}});});return new Response(null,{status:303,headers:{Location:'/admin/participants/'+input.data.id}});}

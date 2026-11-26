@@ -1,0 +1,414 @@
+/* Programme Highlights Carousel & Modern Card Styles */
+
+.programme-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 18px;
+  outline: none;
+  touch-action: pan-y;
+}
+
+.programme-carousel-viewport {
+  overflow: hidden;
+  width: 100%;
+  padding-block: 16px 26px; /* provides space for hover elevation */
+}
+
+.programme-carousel-track {
+  display: flex;
+  gap: 24px;
+  transition: transform 0.52s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+.programme-carousel-slide {
+  flex: 0 0 calc((100% - 48px) / 3);
+  max-width: calc((100% - 48px) / 3);
+  box-sizing: border-box;
+  display: flex;
+}
+
+@media (max-width: 1023px) {
+  .programme-carousel-track {
+    gap: 20px;
+  }
+  .programme-carousel-slide {
+    flex: 0 0 calc((100% - 20px) / 2);
+    max-width: calc((100% - 20px) / 2);
+  }
+}
+
+@media (max-width: 639px) {
+  .programme-carousel-track {
+    gap: 16px;
+  }
+  .programme-carousel-slide {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+/* Modern Card Box Design */
+.modern-programme-card {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: #ffffff !important;
+  border-radius: 16px !important;
+  border: 1px solid #e1ecf0 !important;
+  overflow: hidden !important;
+  text-decoration: none !important;
+  box-shadow: 0 4px 20px rgba(16, 52, 90, 0.05), 0 1px 3px rgba(16, 52, 90, 0.02) !important;
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.28s !important;
+}
+
+.modern-programme-card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 20px 42px rgba(16, 52, 90, 0.12), 0 6px 14px rgba(19, 115, 90, 0.06) !important;
+  border-color: #9cd4c3 !important;
+}
+
+/* Card Media / Image Window */
+.programme-card-media {
+  position: relative !important;
+  width: 100% !important;
+  aspect-ratio: 16 / 9.6 !important;
+  height: 205px !important;
+  min-height: 205px !important;
+  background-color: #eaf1f4 !important;
+  background-position: center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  overflow: hidden !important;
+}
+
+.programme-card-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(180deg, rgba(16, 52, 90, 0.32) 0%, transparent 45%, rgba(16, 52, 90, 0.42) 100%) !important;
+  pointer-events: none !important;
+}
+
+.programme-card-badge {
+  position: absolute !important;
+  top: 14px !important;
+  left: 14px !important;
+  background: rgba(255, 255, 255, 0.94) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  color: #10345a !important;
+  font-size: 11px !important;
+  font-weight: 750 !important;
+  letter-spacing: 0.3px !important;
+  padding: 5px 11px !important;
+  border-radius: 20px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+  z-index: 2 !important;
+}
+
+.programme-card-index {
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  background: rgba(16, 52, 90, 0.82) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  color: #ffffff !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  padding: 4px 10px !important;
+  border-radius: 20px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18) !important;
+  z-index: 2 !important;
+}
+
+/* Card Content Area */
+.programme-card-content {
+  display: flex !important;
+  flex: 1 !important;
+  flex-direction: column !important;
+  padding: 22px 24px 22px !important;
+}
+
+.programme-card-meta {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-bottom: 10px !important;
+}
+
+.programme-kind-icon {
+  width: 26px !important;
+  height: 26px !important;
+  padding: 5px !important;
+  border-radius: 50% !important;
+  background: #eef7f4 !important;
+  color: #13735a !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+.programme-kind-icon svg {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.programme-kind-label {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  color: #13735a !important;
+}
+
+.programme-card-title {
+  font-size: 18px !important;
+  font-weight: 750 !important;
+  line-height: 1.35 !important;
+  color: #10345a !important;
+  margin: 0 0 10px 0 !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  min-height: 48px !important;
+  transition: color 0.2s ease !important;
+}
+
+.modern-programme-card:hover .programme-card-title {
+  color: #13735a !important;
+}
+
+.programme-card-desc {
+  font-size: 13.5px !important;
+  line-height: 1.6 !important;
+  color: #5d7482 !important;
+  margin: 0 0 18px 0 !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  flex-grow: 1 !important;
+}
+
+/* Card Action Footer */
+.programme-card-action {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding-top: 14px !important;
+  margin-top: auto !important;
+  border-top: 1px solid #eef3f6 !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: #13735a !important;
+  transition: color 0.2s ease !important;
+}
+
+.action-arrow {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  background: #f0f7f4 !important;
+  color: #13735a !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 15px !important;
+  transition: all 0.2s ease !important;
+}
+
+.modern-programme-card:hover .action-arrow {
+  background: #13735a !important;
+  color: #ffffff !important;
+  transform: translateX(4px) !important;
+}
+
+/* Carousel Controls */
+.programme-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 12px;
+}
+
+.carousel-nav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid #cfdfe4;
+  background: #ffffff;
+  color: #10345a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 10px rgba(16, 52, 90, 0.07);
+}
+
+.carousel-nav-btn:hover {
+  background: #13735a;
+  border-color: #13735a;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(19, 115, 90, 0.22);
+}
+
+.carousel-nav-btn:active {
+  transform: translateY(0);
+}
+
+.carousel-nav-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Dots on desktop */
+.programme-carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.carousel-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #cbd9de;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.carousel-dot:hover {
+  background: #13735a;
+  opacity: 0.75;
+}
+
+.carousel-dot.active {
+  width: 26px;
+  border-radius: 8px;
+  background: #13735a;
+  box-shadow: 0 2px 8px rgba(19, 115, 90, 0.3);
+}
+
+/* Counter on mobile */
+.programme-carousel-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 16px;
+  background: #f0f7f4;
+  border: 1px solid #c9e4dc;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #13735a;
+}
+
+.programme-carousel-counter strong {
+  color: #112f46;
+  font-size: 15px;
+}
+
+/* Explore All Programmes Footer */
+.programme-carousel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 26px;
+  padding: 0 16px;
+}
+
+.programme-explore-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 6px 20px rgba(19, 115, 90, 0.18) !important;
+  padding: 13px 32px !important;
+  font-size: 14.5px !important;
+  border-radius: 30px !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  max-width: 100% !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+}
+
+.programme-explore-btn:hover {
+  background: #0d5c47 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 24px rgba(19, 115, 90, 0.25) !important;
+}
+
+/* Mobile responsive polish */
+@media (max-width: 639px) {
+  .programme-carousel-viewport {
+    padding-block: 8px 16px;
+  }
+  .programme-card-media {
+    height: 165px !important;
+    min-height: 165px !important;
+  }
+  .programme-card-badge {
+    top: 10px !important;
+    left: 10px !important;
+    font-size: 10px !important;
+    padding: 3px 8px !important;
+  }
+  .programme-card-index {
+    top: 10px !important;
+    right: 10px !important;
+    font-size: 10px !important;
+    padding: 2px 7px !important;
+  }
+  .programme-card-content {
+    padding: 14px 16px 16px !important;
+  }
+  .programme-card-title {
+    font-size: 15px !important;
+    min-height: 38px !important;
+    margin-bottom: 6px !important;
+  }
+  .programme-card-desc {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 12px !important;
+    -webkit-line-clamp: 2 !important;
+  }
+  .programme-card-action {
+    padding-top: 10px !important;
+    font-size: 12px !important;
+  }
+  .action-arrow {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 13px !important;
+  }
+  .carousel-nav-btn {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  .programme-carousel-footer {
+    margin-top: 16px !important;
+  }
+  .programme-explore-btn {
+    width: 100% !important;
+    max-width: 290px !important;
+    padding: 12px 18px !important;
+    font-size: 13.5px !important;
+    white-space: normal !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .programme-carousel-track {
+    transition: none !important;
+  }
+}

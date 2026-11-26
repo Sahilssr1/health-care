@@ -1,0 +1,3 @@
+services:
+  tools:
+    image: bhc2026-tools-competitions-20261029:latest

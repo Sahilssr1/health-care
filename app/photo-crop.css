@@ -1,0 +1,3 @@
+/* Purpose-made healthcare team photography; never an event-poster crop. */
+.artwork-frame{background-image:url('/images/healthcare-team-hero.png');background-position:center;background-size:cover}
+@media(max-width:760px){.artwork-frame{background-position:62% center}}

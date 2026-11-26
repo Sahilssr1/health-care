@@ -1,0 +1,2 @@
+import {cookies} from 'next/headers';import {db} from '@/lib/db';import {hash,trustedOrigin} from '@/lib/security';import {noStore} from '@/lib/competition-server';
+export async function POST(req:Request){if(!trustedOrigin(req))return new Response('Forbidden',{status:403});const c=await cookies(),token=c.get('bhc_participant')?.value;if(token)await db.participantSession.deleteMany({where:{tokenHash:hash(token)}});c.delete('bhc_participant');return Response.json({ok:true},{headers:noStore});}

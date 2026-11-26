@@ -1,0 +1,31 @@
+# PROPOSED ADDITION ONLY — preserve every original NovaStay byte.
+# Activate HTTP bootstrap first. TLS block only once its own certificate exists.
+server {
+    listen 80;
+    server_name biharhealthcareconclave.com;
+    resolver 127.0.0.11 valid=30s ipv6=off;
+    location /.well-known/acme-challenge/ {
+        set $bhc_upstream http://bhc2026-event-app:3000;
+        proxy_pass $bhc_upstream$request_uri;
+        proxy_set_header Host $host;
+    }
+    location / { return 301 https://biharhealthcareconclave.com$request_uri; }
+}
+server {
+    listen 443 ssl;
+    server_name biharhealthcareconclave.com;
+    ssl_certificate /etc/letsencrypt/live/biharhealthcareconclave.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/biharhealthcareconclave.com/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    resolver 127.0.0.11 valid=30s ipv6=off;
+    client_max_body_size 16k;
+    location / {
+        set $bhc_upstream http://bhc2026-event-app:3000;
+        proxy_pass $bhc_upstream$request_uri;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_http_version 1.1;
+    }
+}

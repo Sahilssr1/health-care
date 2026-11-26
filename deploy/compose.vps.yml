@@ -1,0 +1,11 @@
+# Proposed overlay: only BHC app joins existing proxy network; BHC DB stays private.
+services:
+  app:
+    networks:
+      private: {}
+      edge:
+        aliases: [bhc2026-event-app]
+networks:
+  edge:
+    external: true
+    name: novastay-network

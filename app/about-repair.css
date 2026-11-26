@@ -1,0 +1,64 @@
+/* About-only repair: keeps the editorial diagonal while retaining all copy in its high-contrast field. */
+html[data-page="/about"] .page-hero {
+  min-height: 0;
+  padding-block: clamp(96px, 9vw, 132px);
+}
+
+html[data-page="/about"] .page-hero h1 {
+  max-width: min(38vw, 550px);
+  font-size: clamp(48px, 4.85vw, 74px);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+html[data-page="/about"] .page-hero .large {
+  max-width: min(38vw, 540px);
+  color: #d7e9f1;
+  line-height: 1.5;
+}
+
+html[data-page="/about"] .prose .actions {
+  grid-column: 2;
+  margin: 44px 0 0;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  html[data-page="/about"] .page-hero {
+    background: radial-gradient(circle at 88% 8%, #0f778055 0 13%, transparent 14%), #061d3d;
+    padding-block: clamp(64px, 10vw, 90px);
+  }
+
+  html[data-page="/about"] .page-hero h1,
+  html[data-page="/about"] .page-hero .large {
+    max-width: 680px;
+  }
+}
+
+@media (max-width: 700px) {
+  /* Fixed controls covered page copy on small viewports; contextual WhatsApp actions remain in registration and contact. */
+  .floating-actions {
+    display: none;
+  }
+
+  html[data-page="/about"] .page-hero {
+    padding: 58px 6% 64px;
+  }
+
+  html[data-page="/about"] .page-hero h1 {
+    font-size: clamp(42px, 12vw, 52px);
+    line-height: 0.98;
+    letter-spacing: -0.05em;
+  }
+
+  html[data-page="/about"] .page-hero .large {
+    font-size: 18px;
+    line-height: 1.55;
+  }
+
+  html[data-page="/about"] .prose .actions {
+    margin-top: 32px;
+  }
+}

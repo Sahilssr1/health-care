@@ -1,0 +1,48 @@
+{
+  "name": "bihar-healthcare-conclave",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "prisma generate && node scripts/prepare-pass-assets.mjs && next build && node scripts/prepare-standalone.mjs",
+    "start": "node .next/standalone/server.js",
+    "test": "tsx --test tests/*.test.ts",
+    "db:migrate": "prisma migrate deploy",
+    "admin:create": "tsx scripts/create-admin.ts",
+    "email:worker": "tsx scripts/email-worker.ts",
+    "test:integration": "node --env-file=.env --import tsx tests/integration.ts",
+    "test:outage": "tsx tests/outage.ts",
+    "db:seed": "tsx scripts/seed.ts",
+    "sheets:sync": "tsx scripts/sheets-worker.ts",
+    "sheets:watch": "tsx scripts/sheets-worker.ts --watch",
+    "content:repair-partners": "tsx scripts/repair-partners-content.ts"
+  },
+  "dependencies": {
+    "@neon/config": "^1.14.5",
+    "@neon/env": "^2.1.8",
+    "@prisma/client": "^6.16.0",
+    "google-auth-library": "^11.2.0",
+    "next": "^15.5.28",
+    "nodemailer": "^10.3.0",
+    "pdfkit": "^0.20.2",
+    "prisma": "^6.16.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "yauzl": "^3.4.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/nodemailer": "^7.0.0",
+    "@types/pdfkit": "^0.17.6",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/yauzl": "^3.4.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  },
+  "overrides": {
+    "postcss": "8.5.29",
+    "deepmerge-ts": "8.0.2"
+  }
+}

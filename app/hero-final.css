@@ -1,0 +1,2 @@
+/* Final hero image override: dedicated healthcare-professionals artwork only. */
+.conclave-hero .artwork-frame{background:#dcecf4 url('/images/healthcare-team-hero.png?v=1') center/cover no-repeat!important}.conclave-hero .healthcare-artwork{display:none!important}.conclave-hero .visual-caption,.conclave-hero .hero-floating,.conclave-hero .visual-halo{display:none!important}

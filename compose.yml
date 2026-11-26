@@ -1,0 +1,116 @@
+name: bhc2026
+services:
+  db:
+    image: postgres:16-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?Set a separate BHC database}
+      POSTGRES_USER: ${POSTGRES_USER:?Set a separate BHC user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a strong password}
+    volumes: ["bhc_database:/var/lib/postgresql/data"]
+    networks: [private]
+    cpus: 0.50
+    mem_limit: 512m
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  app:
+    build:
+      context: .
+      target: runner
+      args:
+        APP_ORIGIN: ${APP_ORIGIN:?Set the final event origin}
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?schema=public
+      COOKIE_SECURE: "true"
+      TRUST_PROXY: "true"
+    ports: ["127.0.0.1:3106:3000"]
+    networks:
+      private:
+      novastay-network:
+        aliases:
+          - bhc2026-event-app
+    depends_on: {db: {condition: service_healthy}}
+    cpus: 0.75
+    mem_limit: 768m
+    read_only: true
+    tmpfs: ["/tmp", "/app/.next/cache"]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+  tools:
+    build:
+      context: .
+      target: tools
+      args:
+        APP_ORIGIN: ${APP_ORIGIN:?Set the final event origin}
+    profiles: [tools]
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?schema=public
+    networks: [private]
+    cpus: 0.50
+    mem_limit: 512m
+    depends_on: {db: {condition: service_healthy}}
+  email-worker:
+    build:
+      context: .
+      target: tools
+      args:
+        APP_ORIGIN: ${APP_ORIGIN:?Set the final event origin}
+    image: bhc2026-tools-mail:latest
+    restart: unless-stopped
+    command: ["node", "--import", "tsx", "scripts/email-service.ts"]
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?schema=public
+    volumes:
+      - "/opt/bhc2026/secrets/smtp-password:/run/secrets/bhc-smtp-password:ro"
+      - "./lib:/app/lib:ro"
+      - "./public:/app/public:ro"
+      - "./scripts:/app/scripts:ro"
+      - "./assets:/app/assets:ro"
+    networks: [private]
+    cpus: 0.25
+    mem_limit: 256m
+    tmpfs: [/tmp]
+    depends_on: {db: {condition: service_healthy}}
+  sheets-worker:
+    profiles: [sheets]
+    build:
+      context: .
+      target: tools
+      args:
+        APP_ORIGIN: ${APP_ORIGIN:?Set the final event origin}
+    restart: unless-stopped
+    command: ["npm", "run", "sheets:watch"]
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?schema=public
+      GOOGLE_APPLICATION_CREDENTIALS: /run/secrets/google-service-account.json
+    volumes:
+      - type: bind
+        source: ${GOOGLE_SERVICE_ACCOUNT_FILE:-./secrets/google-service-account.json}
+        target: /run/secrets/google-service-account.json
+        read_only: true
+    networks: [private]
+    depends_on: {db: {condition: service_healthy}}
+    cpus: 0.25
+    mem_limit: 256m
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+volumes:
+  bhc_database:
+networks:
+  private:
+  novastay-network:
+    external: true

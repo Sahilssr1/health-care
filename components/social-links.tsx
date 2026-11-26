@@ -1,0 +1,3 @@
+import { getContent } from '@/lib/managed-content';
+const marks:Record<string,string>={Facebook:'f',Instagram:'◎',LinkedIn:'in',YouTube:'▶',X:'𝕏',WhatsApp:'◔'};
+export async function SocialLinks(){const {data}=await getContent('socials');const links=data.filter(s=>s.verified&&s.url);if(!links.length)return null;return <aside className="social-dock" aria-label="Official social media">{links.map(s=><a key={s.brand+'-'+s.platform} className={'social-link social-'+s.platform.toLowerCase()} href={s.url} target="_blank" rel="noopener noreferrer" aria-label={`${s.brand} on ${s.platform}`} title={`${s.brand} on ${s.platform}`}><span aria-hidden="true">{marks[s.platform]||'↗'}</span><span className="social-link-label">{s.platform}</span></a>)}</aside>;}

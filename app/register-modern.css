@@ -1,0 +1,1414 @@
+/* ==========================================================================
+   BIHAR HEALTHCARE CONCLAVE 2026 — MODERN REFINED REGISTRATION
+   Compact, executive-styled typography, streamlined price & category sections.
+   Scoped exclusively for /register page.
+   ========================================================================== */
+
+/* Page Layout Container */
+.register-redesign-root {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
+  gap: clamp(24px, 3.5vw, 48px);
+  align-items: start;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: clamp(28px, 4vw, 56px) clamp(16px, 3vw, 36px);
+  background: 
+    radial-gradient(circle at 10% 15%, rgba(213, 243, 255, 0.45) 0%, transparent 35%),
+    radial-gradient(circle at 90% 85%, rgba(221, 241, 205, 0.45) 0%, transparent 35%),
+    linear-gradient(160deg, #f8fafc 0%, #f1f5f9 100%);
+  position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   LEFT COLUMN: Executive Presentation & Inclusions (Compact Proportional)
+   -------------------------------------------------------------------------- */
+.register-presentation-col {
+  position: sticky;
+  top: 84px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Badge Pill */
+.register-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 11px;
+  background: #ffffff;
+  border: 1px solid #b2dfdb;
+  border-radius: 9999px;
+  font-size: 10px;
+  font-weight: 800;
+  color: #0b2d57;
+  letter-spacing: 0.5px;
+  width: fit-content;
+  box-shadow: 0 1px 4px rgba(11, 45, 87, 0.04);
+}
+
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  display: inline-block;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: pulse-green 2s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+@keyframes pulse-green {
+  to {
+    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+}
+
+/* Headline & Lead (Reduced Text Size) */
+.register-headline {
+  font-size: clamp(26px, 2.8vw, 38px);
+  line-height: 1.1;
+  letter-spacing: -0.8px;
+  font-weight: 800;
+  color: #0b2d57;
+  margin: 0;
+}
+
+.register-headline em {
+  font-style: italic;
+  font-family: Georgia, serif;
+  color: #0d9488;
+}
+
+.register-lead {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #475569;
+  margin: 0;
+}
+
+/* Event Key Facts Capsule */
+.register-event-capsule {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 0 4px 16px -2px rgba(11, 45, 87, 0.04);
+  display: flex;
+  flex-direction: column;
+}
+
+.event-capsule-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.event-capsule-item:last-child {
+  border-bottom: none;
+  padding-bottom: 2px;
+}
+
+.event-capsule-item:first-child {
+  padding-top: 2px;
+}
+
+.capsule-icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #f0fdfa;
+  color: #0d9488;
+  border: 1px solid #ccfbf1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.capsule-icon-wrap svg {
+  width: 17px;
+  height: 17px;
+}
+
+.capsule-label {
+  display: block;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.capsule-val {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.3;
+}
+
+/* Inclusions Card */
+.register-benefits-card {
+  background: linear-gradient(145deg, #f0fdf4 0%, #f0fdfa 100%);
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.benefits-card-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: #166534;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 8px;
+}
+
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.benefits-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 1.35;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.benefit-check {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #22c55e;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 800;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Institutional Help Capsule */
+.register-support-card {
+  background: #ffffff;
+  border: 1px dashed #cbd5e1;
+  border-radius: 11px;
+  padding: 10px 14px;
+}
+
+.support-card-content strong {
+  display: block;
+  font-size: 12px;
+  color: #0b2d57;
+  margin-bottom: 2px;
+}
+
+.support-card-content p {
+  font-size: 11.5px;
+  color: #64748b;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   RIGHT COLUMN: Elevated Form Card (Refined Compact Typography)
+   -------------------------------------------------------------------------- */
+.register-card-wrapper {
+  width: 100%;
+}
+
+.form-card.register-modern-card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: clamp(20px, 3vw, 32px);
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.03),
+    0 16px 32px -8px rgba(11, 45, 87, 0.07);
+  overflow: hidden;
+}
+
+.form-card.register-modern-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #0b2d57 0%, #0d9488 45%, #22c55e 100%);
+}
+
+.form-card-header {
+  margin-bottom: 16px;
+}
+
+.form-kicker-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  color: #0d9488;
+  background: #ccfbf1;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.form-main-heading {
+  font-size: clamp(20px, 2.2vw, 25px);
+  font-weight: 800;
+  color: #0b2d57;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin: 0 0 4px;
+}
+
+.form-sub-heading {
+  font-size: 12.5px;
+  color: #64748b;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.req-star {
+  color: #ef4444;
+  font-weight: 700;
+  margin-left: 2px;
+}
+
+/* Form Section Blocks */
+.form-section-block {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.form-section-block:focus-within {
+  border-color: #cbd5e1;
+  background: #fbfcfe;
+}
+
+.form-section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.form-step-badge {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background: #0b2d57;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.form-section-title-wrap {
+  flex: 1;
+}
+
+.form-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0b2d57;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.form-section-subtitle {
+  font-size: 11px;
+  color: #64748b;
+  margin: 1px 0 0;
+  line-height: 1.3;
+}
+
+/* Fields Grid */
+.form-fields-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group-full {
+  grid-column: 1 / -1;
+}
+
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 4px;
+  letter-spacing: 0.1px;
+}
+
+/* Inputs & Selects (Reduced Size) */
+.modern-reg-form .form-input,
+.modern-reg-form .form-select {
+  width: 100% !important;
+  height: 40px !important;
+  padding: 7px 11px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  background: #ffffff !important;
+  font-size: 13px !important;
+  color: #0f172a !important;
+  font-family: inherit !important;
+  transition: all 0.18s ease !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+}
+
+.modern-reg-form .form-input:hover,
+.modern-reg-form .form-select:hover {
+  border-color: #94a3b8 !important;
+}
+
+.modern-reg-form .form-input:focus,
+.modern-reg-form .form-select:focus {
+  border-color: #0d9488 !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12) !important;
+}
+
+.modern-reg-form .form-input.input-error {
+  border-color: #ef4444 !important;
+  background: #fef2f2 !important;
+}
+
+.modern-reg-form .form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 12px center !important;
+  padding-right: 34px !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  cursor: pointer !important;
+}
+
+.modern-reg-form .form-select:disabled {
+  background-color: #f1f5f9 !important;
+  color: #94a3b8 !important;
+  cursor: not-allowed !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* Feedback & Hints */
+.form-feedback {
+  font-size: 11.5px;
+  margin-top: 3px;
+  display: block;
+}
+
+.error-feedback {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.checking-feedback {
+  color: #64748b;
+  font-style: italic;
+}
+
+/* --------------------------------------------------------------------------
+   PRICE SECTION & CATEGORY STYLING (Refined, Compact, High-Impact)
+   -------------------------------------------------------------------------- */
+
+/* Attendee Fee Banner (Compact Pricing Ticket) */
+.attendee-fee-badge {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%) !important;
+  border: 1px solid #7dd3fc !important;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  box-shadow: 0 2px 8px rgba(14, 116, 144, 0.06) !important;
+  margin-top: 2px !important;
+}
+
+.attendee-fee-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.attendee-currency-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #0284c7;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.attendee-fee-title {
+  display: block;
+  font-size: 12.5px;
+  color: #0369a1;
+  font-weight: 700;
+  margin-bottom: 1px;
+}
+
+.attendee-fee-desc {
+  margin: 0;
+  font-size: 11.5px;
+  color: #0c4a6e;
+  line-height: 1.35;
+}
+
+.attendee-fee-amount-card {
+  text-align: right;
+  flex-shrink: 0;
+  background: #ffffff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid #7dd3fc;
+}
+
+.attendee-fee-label {
+  display: block;
+  font-size: 9px;
+  font-weight: 800;
+  color: #0284c7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+.attendee-fee-val {
+  font-size: 15px;
+  color: #0369a1;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+/* Free Registration Banner */
+.free-registration-badge {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%) !important;
+  border: 1px solid #86efac !important;
+  border-radius: 10px !important;
+  padding: 9px 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin-top: 2px !important;
+}
+
+.free-badge-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #22c55e;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* Workshop Flow Container */
+.workshop-flow-box {
+  background: #ffffff !important;
+  border: 1px solid #d5e1dc !important;
+  border-radius: 10px !important;
+  padding: 10px 12px !important;
+  margin-top: 2px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.workshop-step-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.workshop-step-num {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #13735a;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.workshop-step-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0b2d57;
+  margin: 0;
+}
+
+/* WORKSHOP UNIFIED LIST & CARDS — COMPACT & FULL NAME VISIBILITY */
+.register-modern-card .workshop-unified-list,
+.workshop-unified-list {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 6px !important;
+  width: 100% !important;
+}
+
+.register-modern-card .workshop-unified-card,
+.workshop-unified-card {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  padding: 8px 12px !important;
+  margin: 0 !important;
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  color: #0f2d4a !important;
+  box-sizing: border-box !important;
+  min-height: 38px !important;
+}
+
+.register-modern-card .workshop-unified-card:hover,
+.workshop-unified-card:hover {
+  border-color: #0d9488 !important;
+  background-color: #f0fdfa !important;
+}
+
+.register-modern-card .workshop-unified-card.active,
+.workshop-unified-card.active {
+  border-color: #0d9488 !important;
+  background-color: #ecfdf5 !important;
+  box-shadow: 0 2px 6px rgba(13, 148, 136, 0.1) !important;
+}
+
+.workshop-unified-left {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex: 1;
+  min-width: 0;
+}
+
+.workshop-unified-card input[type="radio"],
+.form-card .workshop-unified-card input[type="radio"] {
+  all: unset !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 14px !important;
+  height: 14px !important;
+  min-width: 14px !important;
+  min-height: 14px !important;
+  border: 1.5px solid #94a3b8 !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  display: inline-grid !important;
+  place-content: center !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+}
+
+.workshop-unified-card input[type="radio"]::before,
+.form-card .workshop-unified-card input[type="radio"]::before {
+  content: "" !important;
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  transition: background-color 0.12s ease !important;
+}
+
+.workshop-unified-card input[type="radio"]:checked,
+.form-card .workshop-unified-card input[type="radio"]:checked {
+  border-color: #0d9488 !important;
+}
+
+.workshop-unified-card input[type="radio"]:checked::before,
+.form-card .workshop-unified-card input[type="radio"]:checked::before {
+  background: #0d9488 !important;
+}
+
+.workshop-unified-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  min-width: 18px;
+  flex-shrink: 0;
+}
+
+.register-modern-card .workshop-unified-title,
+.workshop-unified-title {
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  color: #1e293b !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+  word-break: normal !important;
+  line-height: 1.3 !important;
+  flex: 1 !important;
+}
+
+.register-modern-card .workshop-unified-card.active .workshop-unified-title,
+.workshop-unified-card.active .workshop-unified-title {
+  color: #064e3b !important;
+  font-weight: 700 !important;
+}
+
+/* FEE BADGE ON CARDS (Compact Price Tag) */
+.workshop-unified-fee {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #0f172a;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.register-modern-card .workshop-unified-card.active .workshop-unified-fee,
+.workshop-unified-card.active .workshop-unified-fee {
+  background: #0d9488 !important;
+  color: #ffffff !important;
+  border-color: #0d9488 !important;
+}
+
+/* WORKSHOP SUMMARY INVOICE TICKET */
+.workshop-summary-box {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%) !important;
+  border: 1px solid #86efac !important;
+  border-radius: 8px !important;
+  padding: 9px 12px !important;
+  box-shadow: none !important;
+  margin-top: 4px !important;
+}
+
+.workshop-summary-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #bbf7d0;
+  padding-bottom: 4px;
+  margin-bottom: 6px;
+}
+
+.workshop-summary-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: #166534;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.workshop-summary-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #15803d;
+  background: #dcfce7;
+  padding: 1px 6px;
+  border-radius: 6px;
+}
+
+.workshop-summary-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 10px;
+  row-gap: 3px;
+  font-size: 11.5px;
+}
+
+.workshop-summary-label {
+  color: #4b6358;
+  font-weight: 600;
+}
+
+.workshop-summary-val {
+  color: #064e3b;
+  font-weight: 700;
+}
+
+.workshop-fee-highlight {
+  display: inline-block;
+  background: #bbf7d0;
+  color: #14532d;
+  font-weight: 800;
+  font-size: 13.5px;
+  padding: 1px 8px;
+  border-radius: 5px;
+  border: 1px solid #86efac;
+}
+
+/* Error Alert */
+.form-error-alert {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 9px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #b91c1c;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* Terms Notice */
+.modern-reg-form .form-terms {
+  font-size: 11.5px;
+  color: #64748b;
+  line-height: 1.4;
+  margin: 10px 0 12px;
+}
+
+.modern-reg-form .form-terms a {
+  color: #0d9488;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Submit Button (Compact & Premium) */
+.reg-submit-btn {
+  width: 100% !important;
+  height: 44px !important;
+  background: linear-gradient(135deg, #0b2d57 0%, #0d9488 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: all 0.18s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  box-shadow: 0 6px 16px -3px rgba(11, 45, 87, 0.22) !important;
+  margin-top: 2px !important;
+}
+
+.reg-submit-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #092347 0%, #0b7a70 100%) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 8px 20px -3px rgba(11, 45, 87, 0.28) !important;
+}
+
+.reg-submit-btn:disabled {
+  opacity: 0.7 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* Security Guarantee Pill */
+.form-security-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* WhatsApp Link Wrapper */
+.reg-whatsapp-wrapper {
+  margin-top: 8px;
+  text-align: center;
+}
+
+.reg-whatsapp-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 8px 12px;
+  background: #f0fdfa;
+  border: 1px solid #ccfbf1;
+  border-radius: 8px;
+  color: #0f766e;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.reg-whatsapp-link:hover {
+  background: #ccfbf1;
+  color: #0d5c56;
+}
+
+.wa-icon {
+  font-size: 13px;
+}
+
+/* --------------------------------------------------------------------------
+   AREA OF INTEREST MULTI-SELECTION & PRICE BREAKDOWN
+   -------------------------------------------------------------------------- */
+.interest-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  gap: 10px;
+}
+
+.interest-instruction-pill {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0369a1;
+  background: #e0f2fe;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  border: 1px solid #bae6fd;
+}
+
+.interest-placeholder-box {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: #64748b;
+  text-align: center;
+}
+
+/* Logical Groupings for Area of Interest */
+.interest-group-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.interest-subgroup {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.interest-subgroup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.interest-subgroup-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #0b2d57;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.interest-subgroup-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: #0f766e;
+  background: #ccfbf1;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  letter-spacing: 0.2px;
+}
+
+/* 2-column grid for compact layout */
+.interest-2col-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 680px) {
+  .interest-2col-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.interest-card-desc {
+  font-size: 11px;
+  color: #64748b;
+  margin: 2px 0 0 0;
+  line-height: 1.3;
+  font-weight: 400;
+}
+
+/* Nested Workshop Container Directly Under Workshop Option */
+.workshop-nested-box {
+  background: #ffffff;
+  border: 1.5px solid #0d9488;
+  border-radius: 9px;
+  padding: 10px 12px;
+  margin-top: 8px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.workshop-nested-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #0f766e;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed #ccfbf1;
+}
+
+.workshop-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #0d9488;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.workshop-nested-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  max-height: 380px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 4px;
+}
+
+/* Custom modern scrollbar for workshop list */
+.workshop-nested-grid::-webkit-scrollbar {
+  width: 5px;
+}
+.workshop-nested-grid::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+.workshop-nested-grid::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+.workshop-nested-grid::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.workshop-sub-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 38px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.workshop-sub-card:hover {
+  border-color: #0d9488;
+  background: #f0fdfa;
+}
+
+.workshop-sub-card.active {
+  border-color: #0d9488;
+  background: #ecfdf5;
+  box-shadow: 0 1px 4px rgba(13, 148, 136, 0.15);
+}
+
+.workshop-sub-card.active .workshop-sub-fee {
+  background: #ccfbf1;
+  color: #0f766e;
+}
+
+.workshop-sub-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.workshop-sub-radio {
+  width: 15px;
+  height: 15px;
+  accent-color: #0d9488;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.workshop-sub-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #1e293b;
+  white-space: normal;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.workshop-sub-fee {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0b2d57;
+  flex-shrink: 0;
+  background: #f1f5f9;
+  padding: 3px 8px;
+  border-radius: 5px;
+  letter-spacing: 0.2px;
+}
+
+.workshop-selected-pill-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+  padding: 6px 10px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 6px;
+  font-size: 11.5px;
+  color: #065f46;
+}
+
+.interest-other-input-wrap {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed #cbd5e1;
+}
+
+.form-label-compact {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+.interest-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+
+.interest-card-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 12px;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.interest-card-item:hover {
+  border-color: #0d9488;
+  background: #f0fdfa;
+}
+
+.interest-card-item.selected {
+  border-color: #0d9488;
+  background: #ecfdf5;
+  box-shadow: 0 2px 6px rgba(13, 148, 136, 0.12);
+}
+
+.interest-card-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.interest-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: #0d9488;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.interest-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f2d4a;
+  line-height: 1.35;
+}
+
+.interest-card-badge {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #0369a1;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  padding: 3px 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.interest-card-badge.free-badge {
+  color: #15803d;
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.interest-card-item.selected .interest-card-badge {
+  background: #0d9488;
+  color: #ffffff;
+  border-color: #0f766e;
+}
+
+.interest-card-item.selected .interest-card-badge.free-badge {
+  background: #16a34a;
+  color: #ffffff;
+  border-color: #15803d;
+}
+
+/* PRICE BREAKDOWN CARD */
+.price-breakdown-card {
+  background: #ffffff;
+  border: 1.5px solid #0d9488;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-top: 6px;
+  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.08);
+}
+
+.price-breakdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.price-breakdown-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price-breakdown-icon {
+  font-size: 20px;
+}
+
+.price-breakdown-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0b2d57;
+  margin: 0;
+}
+
+.price-breakdown-subtitle {
+  font-size: 11.5px;
+  color: #64748b;
+  margin: 2px 0 0 0;
+}
+
+.price-breakdown-pill {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0f766e;
+  background: #ccfbf1;
+  border: 1px solid #99f6e4;
+  padding: 3px 10px;
+  border-radius: 9999px;
+}
+
+.price-breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.price-breakdown-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  padding: 4px 0;
+}
+
+.price-breakdown-item-name {
+  color: #334155;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.price-check-bullet {
+  color: #0d9488;
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.price-breakdown-item-fee {
+  color: #0b2d57;
+  font-weight: 700;
+}
+
+.price-breakdown-total-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #0b2d57 0%, #164e63 100%);
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  margin-top: 6px;
+}
+
+.total-bar-label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.total-bar-val {
+  font-size: 18px;
+  font-weight: 800;
+  color: #38bdf8;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVENESS & BREAKPOINTS
+   -------------------------------------------------------------------------- */
+@media (max-width: 980px) {
+  .register-redesign-root {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 24px 16px;
+  }
+
+  .register-presentation-col {
+    position: static;
+  }
+
+  .register-headline {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 640px) {
+  .form-fields-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .form-card.register-modern-card {
+    padding: 18px 14px;
+    border-radius: 14px;
+  }
+
+  .form-section-block {
+    padding: 12px 12px;
+    border-radius: 10px;
+  }
+
+  .attendee-fee-badge {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .attendee-fee-amount-card {
+    width: 100%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

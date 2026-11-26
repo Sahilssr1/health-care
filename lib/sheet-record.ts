@@ -1,0 +1,6 @@
+import type {Registration} from '@prisma/client';
+export const legacySheetHeaders=['Registration reference','Full name','Email','Mobile','City / district','Participation category','Institution','Designation / course','Area of interest','Registered at (IST)','Confirmation status','Confirmation email status','Attendance','Checked in at (IST)','Privacy consent at (IST)','Consent version','Last synced at (IST)'];
+export const sheetHeaders=['Registration reference','Full name','Email','Mobile','College / organisation','State','District / city','Participant type','Category','Area of interest','Registered at (IST)','Confirmation status','Confirmation email status','Attendance','Checked in at (IST)','Privacy consent at (IST)','Consent version','Last synced at (IST)'];
+export const dateColumns=new Set([10,14,15,17]);
+export function sheetDate(date:Date|null){return date?date.getTime()/86400000+25569+5.5/24:'';}
+export function sheetRecord(r:Registration,syncedAt:Date=new Date()):(string|number)[]{return [r.reference,r.fullName,r.email,r.mobile,r.institution,r.state,r.city,r.participantType,r.category,r.interest||'',sheetDate(r.createdAt),'Registered',r.emailStatus,r.attendedAt?'Present':'Not checked in',sheetDate(r.attendedAt),sheetDate(r.consentAt),r.consentVersion,sheetDate(syncedAt)];}

@@ -1,0 +1,24 @@
+# Proposed new event vhost only. Not installed; requires infrastructure review.
+# Never overwrite NovaStay's configuration. Install only after shared-proxy approval.
+server {
+  listen 80;
+  server_name biharhealthcareconclave.com;
+  return 301 https://$host$request_uri;
+}
+server {
+  listen 443 ssl;
+  server_name biharhealthcareconclave.com;
+  ssl_certificate /etc/letsencrypt/live/biharhealthcareconclave.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/biharhealthcareconclave.com/privkey.pem;
+  ssl_protocols TLSv1.2 TLSv1.3;
+  add_header Strict-Transport-Security "max-age=31536000" always;
+  client_max_body_size 16k;
+  location / {
+    proxy_pass http://127.0.0.1:3106;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_http_version 1.1;
+  }
+}

@@ -1,0 +1,184 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Registration {
+  id                    String    @id @default(uuid())
+  reference             String    @unique
+  fullName              String
+  email                 String    @unique
+  mobile                String
+  city                  String
+  category              String
+  institution           String
+  designation           String
+  interest              String?
+  participantType       String    @default("")
+  specialisation        String    @default("")
+  whatsApp              String    @default("")
+  department            String    @default("")
+  organisationType      String    @default("")
+  state                 String    @default("")
+  country               String    @default("India")
+  experience            String    @default("")
+  preferredProgrammes   String[]  @default([])
+  communicationsConsent Boolean   @default(false)
+  registrationStatus    String    @default("confirmed")
+  consentAt             DateTime
+  consentVersion        String    @default("2026-10-12")
+  createdAt             DateTime  @default(now())
+  attendedAt            DateTime?
+  passSentAt            DateTime?
+  passVersion           String?
+  emailStatus           String    @default("pending")
+  emailAttempts         Int       @default(0)
+  emailNextAttempt      DateTime  @default(now())
+  googleKey             Int       @unique @default(autoincrement())
+  googleStatus          String    @default("pending")
+  googleVersion         Int       @default(1)
+  googleSyncedVersion   Int       @default(0)
+  googleSyncedAt        DateTime?
+  googleAttempts        Int       @default(0)
+  googleNextAttempt     DateTime  @default(now())
+  googleLastError       String?
+
+  @@index([category, createdAt])
+  @@index([city])
+}
+
+model Admin {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String
+  role         String    @default("admin")
+  createdAt    DateTime  @default(now())
+  sessions     Session[]
+}
+
+model Session {
+  tokenHash String   @id
+  adminId   String
+  admin     Admin    @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+}
+
+model Audit {
+  id        String   @id @default(uuid())
+  adminId   String
+  action    String
+  target    String?
+  createdAt DateTime @default(now())
+}
+
+model RateLimit {
+  key     String   @id
+  count   Int
+  resetAt DateTime
+}
+
+model ContentRecord {
+  key       String   @id
+  data      Json
+  revision  Int      @default(1)
+  updatedAt DateTime @updatedAt
+}
+
+model ParticipantChallenge {
+  id              String    @id @default(uuid())
+  registrationId  String
+  codeHash        String
+  codeCiphertext  String?
+  expiresAt       DateTime
+  attempts        Int       @default(0)
+  usedAt          DateTime?
+  mailStatus      String    @default("pending")
+  mailAttempts    Int       @default(0)
+  mailNextAttempt DateTime  @default(now())
+  createdAt       DateTime  @default(now())
+
+  @@index([registrationId, createdAt])
+  @@index([mailStatus, mailNextAttempt])
+}
+
+model ParticipantSession {
+  tokenHash      String   @id
+  registrationId String
+  expiresAt      DateTime
+  createdAt      DateTime @default(now())
+
+  @@index([expiresAt])
+}
+
+model CompetitionConfig {
+  id        String   @id @default("main")
+  data      Json
+  revision  Int      @default(1)
+  updatedAt DateTime @updatedAt
+}
+
+model CompetitionEntry {
+  id               String               @id @default(uuid())
+  reference        String               @unique
+  kind             String
+  registrationId   String
+  college          String
+  course           String
+  studyYear        String
+  discipline       String
+  teamName         String               @default("")
+  emailStatus      String               @default("pending")
+  emailAttempts    Int                  @default(0)
+  emailNextAttempt DateTime             @default(now())
+  consentAt        DateTime             @default(now())
+  createdAt        DateTime             @default(now())
+  members          CompetitionMember[]
+  submission       HackathonSubmission?
+  attempt          QuizAttempt?
+
+  @@unique([kind, registrationId])
+  @@index([kind, createdAt])
+}
+
+model CompetitionMember {
+  id             String           @id @default(uuid())
+  entryId        String
+  entry          CompetitionEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  registrationId String           @unique
+  role           String
+}
+
+model HackathonSubmission {
+  id           String           @id @default(uuid())
+  entryId      String           @unique
+  entry        CompetitionEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  projectTitle String
+  problem      String
+  solution     String
+  prototypeUrl String           @default("")
+  filename     String
+  bytes        Bytes
+  size         Int
+  sha256       String
+  uploadedAt   DateTime         @default(now())
+}
+
+model QuizAttempt {
+  id          String           @id @default(uuid())
+  entryId     String           @unique
+  entry       CompetitionEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  snapshot    Json
+  answers     Json
+  startedAt   DateTime         @default(now())
+  expiresAt   DateTime
+  submittedAt DateTime?
+  score       Int?
+  total       Int
+  version     Int              @default(0)
+
+  @@index([expiresAt, submittedAt])
+}

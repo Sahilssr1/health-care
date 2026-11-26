@@ -1,0 +1,579 @@
+/* ==========================================================================
+   BIHAR HEALTHCARE CONCLAVE 2026 — OFFICIAL PASS DESIGN & A4 PRINT SYSTEM
+   Unified layout matching the official conference digital pass
+   Strict single-page A4 print guarantee (no multi-page spill)
+   ========================================================================== */
+
+/* Screen wrapper */
+.confirmation-screen-wrapper {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+}
+
+/* Screen Action / Notification Bar (Hidden on print) */
+.confirmation-action-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid #dbe5ec;
+  border-radius: 10px;
+  padding: 12px 18px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(18, 61, 121, 0.06);
+}
+
+.confirmation-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #166534;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  padding: 5px 12px;
+  border-radius: 9999px;
+}
+
+.confirmation-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-print-pass {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #123d79;
+  color: #ffffff !important;
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 9px 18px;
+  border-radius: 7px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(18, 61, 121, 0.2);
+}
+
+.btn-print-pass:hover {
+  background: #0d2c57;
+  transform: translateY(-1px);
+}
+
+.btn-home-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4b6375;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 7px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.btn-home-link:hover {
+  background: #f8fafc;
+  color: #123d79;
+}
+
+/* ==========================================================================
+   OFFICIAL DELEGATE PASS CARD (Matches official digital pass layout)
+   ========================================================================== */
+.official-digital-pass {
+  background: #ffffff;
+  border: 1px solid #dbe5ec;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(18, 61, 121, 0.08);
+  color: #10376b;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* Top Accent Line */
+.pass-top-accent {
+  height: 6px;
+  background: #133d78;
+  width: 100%;
+}
+
+/* Pass Inner Content Padding */
+.pass-inner-body {
+  padding: 24px 28px 20px;
+}
+
+/* Block 1: Header (Logo on Left, Date Badge on Right) */
+.pass-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.pass-conclave-logo-img {
+  max-height: 84px;
+  max-width: 380px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.pass-header-date-badge {
+  background: #ecf5e9;
+  border-radius: 10px;
+  padding: 10px 16px;
+  text-align: center;
+  min-width: 105px;
+  flex-shrink: 0;
+}
+
+.pass-date-badge-day {
+  font-size: 17px;
+  font-weight: 800;
+  color: #287b35;
+  line-height: 1.1;
+  letter-spacing: 0.5px;
+}
+
+.pass-date-badge-year {
+  font-size: 20px;
+  font-weight: 800;
+  color: #10376b;
+  line-height: 1.2;
+}
+
+/* Block 2: Title Banner */
+.pass-title-banner {
+  background: #123d79;
+  border-radius: 7px;
+  padding: 10px 16px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.pass-title-banner-text {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Block 3: Event Date & Venue Box */
+.pass-box-date-venue {
+  background: #f0f6fb;
+  border-radius: 7px;
+  padding: 10px 16px;
+  margin-bottom: 12px;
+}
+
+.pass-label-small {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #587388;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin: 0 0 3px;
+}
+
+.pass-value-venue {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #10376b;
+  margin: 0;
+}
+
+/* Block 4: Registered Participant Box */
+.pass-box-participant {
+  background: #edf6ec;
+  border-radius: 8px;
+  padding: 12px 18px;
+  margin-bottom: 12px;
+}
+
+.pass-value-participant {
+  font-size: 24px;
+  font-weight: 800;
+  color: #10376b;
+  margin: 2px 0 0;
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+/* Block 5: Registration Reference Box */
+.pass-box-reference {
+  background: #f1f6fb;
+  border-radius: 7px;
+  padding: 10px 16px;
+  margin-bottom: 12px;
+}
+
+.pass-value-reference {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #10376b;
+  margin: 2px 0 0;
+  word-break: break-all;
+}
+
+/* Block 6: Company / Organisation / Institution Box */
+.pass-box-institution {
+  background: #ffffff;
+  border: 1px solid #dbe5ec;
+  border-radius: 7px;
+  padding: 10px 16px;
+  margin-bottom: 12px;
+}
+
+.pass-value-institution {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #10376b;
+  margin: 2px 0 0;
+  word-break: break-word;
+}
+
+/* Block 7: Mobile Number & Participant Category Split */
+.pass-row-split {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.pass-box-half {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid #dbe5ec;
+  border-radius: 7px;
+  padding: 10px 16px;
+}
+
+.pass-box-half-large {
+  flex: 1.5;
+}
+
+.pass-value-split {
+  font-size: 13px;
+  font-weight: 700;
+  color: #10376b;
+  margin: 2px 0 0;
+  word-break: break-word;
+}
+
+/* Block 8: Important Instructions Box */
+.pass-box-instructions {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 7px;
+  padding: 10px 16px;
+  margin-bottom: 14px;
+}
+
+.pass-instructions-title {
+  font-size: 10px;
+  font-weight: 800;
+  color: #92400e;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin: 0 0 3px;
+}
+
+.pass-instructions-text {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #78350f;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Block 9: Official Organisers & Partners Grid (9 Partners in 3x3 layout) */
+.pass-partners-grid-9 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px 14px;
+  padding: 12px 6px 6px;
+  margin-top: 6px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.pass-partner-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: flex-start;
+}
+
+.pass-partner-label {
+  font-size: 7.5px;
+  font-weight: 700;
+  color: #587388;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.pass-partner-logo-img {
+  max-height: 32px;
+  max-width: 130px;
+  height: auto;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.pass-partner-name {
+  font-size: 8px;
+  color: #475569;
+  margin-top: 3px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Block 10: Deep Blue Footer */
+.pass-bottom-footer {
+  background: #123d79;
+  padding: 12px 16px 14px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.pass-footer-site {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin: 0 0 3px;
+}
+
+.pass-footer-disclaimer {
+  font-size: 9px;
+  color: #dbe5ec;
+  margin: 0;
+}
+
+/* ==========================================================================
+   STRICT 1-PAGE A4 PRINT SPECIFICATION
+   Eliminates all 3-page spillover and guarantees exactly 1 printed page
+   ========================================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 6mm 8mm;
+  }
+
+  *, *:before, *:after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  /* Completely eliminate ALL outer website chrome */
+  header,
+  .site-header,
+  nav,
+  .announcement,
+  .dynamic-announcement,
+  .social-links,
+  .social-dock,
+  footer,
+  .site-footer,
+  .skip,
+  .confirmation-action-bar,
+  .print-hide,
+  button,
+  .no-print {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #main {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .confirmation-screen-wrapper {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+  }
+
+  .official-digital-pass {
+    box-shadow: none !important;
+    border: 1pt solid #123d79 !important;
+    border-radius: 6pt !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    max-height: 275mm !important;
+    page-break-inside: avoid !important;
+    page-break-before: avoid !important;
+    page-break-after: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .pass-inner-body {
+    padding: 12pt 16pt 10pt !important;
+  }
+
+  .pass-conclave-logo-img {
+    max-height: 52pt !important;
+    max-width: 260pt !important;
+  }
+
+  .pass-header-date-badge {
+    padding: 6pt 10pt !important;
+    min-width: 75pt !important;
+  }
+
+  .pass-date-badge-day {
+    font-size: 13pt !important;
+  }
+
+  .pass-date-badge-year {
+    font-size: 15pt !important;
+  }
+
+  .pass-title-banner {
+    padding: 6pt 10pt !important;
+    margin-bottom: 8pt !important;
+  }
+
+  .pass-title-banner-text {
+    font-size: 10.5pt !important;
+  }
+
+  .pass-box-date-venue {
+    padding: 6pt 10pt !important;
+    margin-bottom: 8pt !important;
+  }
+
+  .pass-value-venue {
+    font-size: 10pt !important;
+  }
+
+  .pass-box-participant {
+    padding: 8pt 12pt !important;
+    margin-bottom: 8pt !important;
+  }
+
+  .pass-value-participant {
+    font-size: 16pt !important;
+  }
+
+  .pass-box-reference {
+    padding: 6pt 10pt !important;
+    margin-bottom: 8pt !important;
+  }
+
+  .pass-value-reference {
+    font-size: 9.5pt !important;
+  }
+
+  .pass-box-institution {
+    padding: 6pt 10pt !important;
+    margin-bottom: 8pt !important;
+  }
+
+  .pass-value-institution {
+    font-size: 9.5pt !important;
+  }
+
+  .pass-row-split {
+    gap: 8pt !important;
+    margin-bottom: 8pt !important;
+  }
+
+  .pass-box-half {
+    padding: 6pt 10pt !important;
+  }
+
+  .pass-value-split {
+    font-size: 9pt !important;
+  }
+
+  .pass-box-instructions {
+    padding: 6pt 10pt !important;
+    margin-bottom: 8pt !important;
+  }
+
+  .pass-instructions-text {
+    font-size: 8.5pt !important;
+    line-height: 1.35 !important;
+  }
+
+  .pass-partners-grid-9 {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 6pt 8pt !important;
+    padding: 6pt 2pt 4pt !important;
+    margin-top: 4pt !important;
+    border-top: 0.5pt solid #e2e8f0 !important;
+  }
+
+  .pass-partner-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .pass-partner-label {
+    font-size: 5.5pt !important;
+    margin-bottom: 2pt !important;
+  }
+
+  .pass-partner-logo-img {
+    max-height: 20pt !important;
+    max-width: 90pt !important;
+  }
+
+  .pass-partner-name {
+    font-size: 5.5pt !important;
+    line-height: 1.1 !important;
+    margin-top: 1pt !important;
+  }
+
+  .pass-bottom-footer {
+    padding: 8pt 12pt !important;
+  }
+
+  .pass-footer-site {
+    font-size: 9pt !important;
+  }
+
+  .pass-footer-disclaimer {
+    font-size: 7pt !important;
+  }
+}

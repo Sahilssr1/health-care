@@ -1,0 +1,4 @@
+services:
+  app:
+    image: bhc2026-app-premium-20261029:latest
+

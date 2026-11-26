@@ -1,0 +1,5 @@
+export function AudienceBenefits(){return <section className="section"><p className="eyebrow">WHY ATTEND</p><h2>New connections. Useful perspectives.</h2><div className="benefit-grid">{[
+ ['For Institutions',['Showcase institutional excellence','Explore quality practices and digital transformation','Develop faculty and staff','Build strategic partnerships']],
+ ['For Professionals',['Exchange clinical and professional knowledge','Explore quality and patient safety','Develop leadership perspectives','Connect across disciplines']],
+ ['For Students',['Discover career pathways','Explore clinical and professional skills','Connect with healthcare innovation and AI','Learn about the Conclave’s hackathon initiative']]
+ ].map(([title,items])=><article className="benefit-card" key={title as string}><h3>{title}</h3><ul>{(items as string[]).map(item=><li key={item}>{item}</li>)}</ul></article>)}</div><p className="muted">Programme formats, eligibility and any recognition arrangements are subject to organiser announcements.</p></section>;}

@@ -1,0 +1,12 @@
+services:
+  acme:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    volumes: ["/opt/bhc2026/acme:/usr/share/nginx/html:ro"]
+    networks:
+      edge:
+        aliases: [bhc2026-acme]
+    cpus: 0.10
+    mem_limit: 64m
+    read_only: true
+    tmpfs: [/var/cache/nginx, /var/run, /tmp]

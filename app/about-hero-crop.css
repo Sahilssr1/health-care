@@ -1,0 +1,2 @@
+/* Keep the conference speaker and podium in frame inside the tall About hero crop. */
+html[data-page="/about"] .about-hero-image img{object-position:100% 50%}

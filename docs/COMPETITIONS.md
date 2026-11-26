@@ -1,0 +1,19 @@
+# Quiz & Hackathon implementation — 29 October 2026
+
+Authoritative user decisions: Quiz is individual; Hackathon allows individuals or optional teams. Public dates are proposed: 4 December (quiz), 5 December (Hackathon), subject to confirmation. No final start window, question bank, deadline or award terms were supplied. The quiz therefore remains disabled until an admin supplies approved questions and a final time window. No sample questions are seeded or published.
+
+Identity: a confirmed general BHC registration is required. Six-digit email codes expire in ten minutes, are bound to a challenge, have a five-attempt limit and are single use. Codes are HMAC-verified and encrypted in the mail queue; encrypted content is cleared after SMTP acceptance or expiry. A separate HttpOnly/Secure/SameSite Strict six-hour participant session permits only that registration's quiz/entry or leader upload. General/admin sessions remain separate. Unknown/unconfirmed email requests return the same generic acknowledgement.
+
+Participation: separate competition references; individual Quiz; individual or team Hackathon; members must already have confirmed BHC registrations, and each person can belong to one Hackathon entry. Current technical cap: 20 members including leader; larger teams contact the organiser. Team membership cannot be edited through public endpoints after registration; organiser handles corrections.
+
+Projects: title, problem, solution, optional HTTPS prototype/demo URL; PPTX or PDF up to 8 MB. Old PPT requires conversion. File signatures, PPTX central-directory structure, macro/unsafe-path/archive limits validated. No antivirus guarantee is made. Files stay in the isolated BHC PostgreSQL database, never public storage. Owner/leader and full admin can download attachments; viewers cannot download/export/mutate. No prototype URL is fetched by the server. Replacement overwrites the earlier submission until the configured deadline.
+
+Quiz: up to 30 minutes within the final window; one attempt; server clock, row-locked saves and expiry; answer key never returned to participant/browser; grading uses the frozen attempt snapshot; admin cannot change question bank once any attempt starts. Correct answers score one, incorrect/unanswered zero; equal scores share a rank. Results remain hidden until admin publication. Awards are organiser decisions, not automatic eligibility claims.
+
+Admin: /admin/competitions shows separate totals, team member identities, project descriptions/private files, quiz results/ranking; full admins manage registrations-open flags, proposed dates, final window, upload deadline, approved question bank and result publication. CSV is formula-safe and capped at latest 5,000 entries. Origin checks, database rate limits, consent time and audit records protect mutations/access.
+
+Dependencies patched: Next 15.5.28 and Nodemailer 10.3.0; Zod 4.6.7. npm audit reports no known vulnerabilities after update. Existing registration/admin/CSV/PDF tests are rerun for compatibility. ZIP validation follows yauzl's documented lazy central-directory API: https://github.com/thejoshwolfe/yauzl.
+
+Deployment preparation: additive migration 202610290001_competitions; app and BHC mail-worker image update only; COMPETITION_AUTH_SECRET generated once on VPS without logging. Existing SMTP secret mount is unchanged. Private backups at /opt/bhc2026/backups/20261029-competitions. Shared Nginx currently limits Conclave requests to 16 KB. A staged, isolated-container-tested plan adds only exact Conclave upload (9m request) and admin configuration (640k) paths, retaining all previous routes/limits. Shared proxy reload awaits explicit scoped user approval.
+
+Pending final inputs: approved quiz questions/answers, final times/deadlines and award/eligibility details. WhatsApp automation remains inactive without a provider account, unrelated to the email verification flow.

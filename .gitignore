@@ -1,0 +1,12 @@
+node_modules/
+.next/
+.env
+.env.*
+!.env.example
+*.log
+backups/
+secrets/
+next-env.d.ts
+*.tsbuildinfo
+.neon
+repos/

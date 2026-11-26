@@ -1,0 +1,1 @@
+'use client';export default function ErrorPage({reset}:{reset:()=>void}){return <section className="section"><h1>We couldn’t load this page.</h1><p>Please try again. No registration success is shown unless your record was saved.</p><button onClick={reset} className="button">Try again</button></section>}

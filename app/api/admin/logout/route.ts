@@ -1,0 +1,2 @@
+import {cookies} from 'next/headers';import {db} from '@/lib/db';import {adminSession,trustedOrigin} from '@/lib/security';
+export async function POST(req:Request){if(!trustedOrigin(req))return new Response('Forbidden',{status:403});const session=await adminSession();if(session)await db.$transaction([db.session.delete({where:{tokenHash:session.tokenHash}}),db.audit.create({data:{adminId:session.adminId,action:'logout'}})]);(await cookies()).delete('bhc_session');return new Response(null,{status:303,headers:{Location:'/admin'}});}
